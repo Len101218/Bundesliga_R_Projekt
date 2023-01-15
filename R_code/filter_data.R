@@ -6,12 +6,23 @@ if("tidyverse" %in% rownames(installed.packages())== FALSE){
 if("devtools" %in% rownames(installed.packages())== FALSE){
   install.packages("devtools")
 }
+if("here" %in% rownames(installed.packages())== FALSE){
+  install.packages("here")
+}
+
+library(here)
 library(tidyverse)
+library(usethis)
 library(devtools)
 
 
 
-data <- read_csv("C:/Users/HP/OneDrive/Desktop/EWS_projekt_Datensatz_1.csv")
+read_data_from_csv <- function(relPath){
+  if(!is.character(path))stop("One or more arguments are wrong: See help!")
+  absPath <- here(relPath) 
+  data <- read_csv(absPath)
+}
+
 
 #' filter_data
 #' 
@@ -32,7 +43,7 @@ data <- read_csv("C:/Users/HP/OneDrive/Desktop/EWS_projekt_Datensatz_1.csv")
 #' @export
 #'
 #' @examples
-get_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwer_bis="ALLVALUESTO"){#TODO: use current year
+filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwer_bis="ALLVALUESTO"){#TODO: use current year
   
   
   
@@ -41,10 +52,8 @@ get_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALL
     return("FEHLER: Es muss mindestens ein Team oder eine Liga übergeben werden!")
   }
   
-  if(typeof(saison_von)!="integer"|typeof(saison_bis)!="integer"|typeof(teams)!="character"|typeof(ligen)!="character"|
-    (platzierungen!="ALLPLACES"|typeof(platzierungen)!="integer")|(punkte!="ALLPOINTS"|typeof(punkte)!="integer")|
-    (typeof(marktwert_von)!="integer"|marktwert!="ALLVALUESFROM")|(typeof(marktwert_bis)!="integer"|marktwert!="ALLVALUESTO")){
-    return("Ein/Mehrere Paramter wurden falsch übergeben!")
+  if(!is.numeric(saison_von) || !is.numeric(saison_bis) || !is.character(teams) || !is.character(ligen) ||!(platzierungen=="ALLPLACES" || is.numerical(platzierungen)) || !(punkte=="ALLPOINTS"||is.numerical(punkte)) ||!(marktwert_von=="ALLVALUESFROM"||is.numerical(marktwert_von))|!(is.numerical(marktwer_bis)||marktwert_bis=="ALLVALUESTO")){
+    return("Ein/Mehrere Parameter wurden falsch übergeben!")
   }
   
   #Filtern
@@ -71,7 +80,6 @@ get_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALL
       filter(Marktwert %in% marktwert)
   }
 }
-?get_data
 
 
 
