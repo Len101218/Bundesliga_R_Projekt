@@ -48,13 +48,14 @@ def lookup(liga):
     return "L1"
 
 def main(argv):
-    opts,args = getopt.getopt(argv,"hl:o:k:s:",["help","liga=","saison","kuerzel=","output"])
+    opts,args = getopt.getopt(argv,"hl:o:k:s:a",["help","liga=","saison=","kuerzel=","output=","append"])
 
     liga = "Bundesliga"
     saison = '2022'
     kuerzel = 'L1'
     output = 'data'
-    
+    append = False
+
     for opt,arg in opts:
         if opt in ("-h","--help"):
             help = "Arguments: \n-l: Liga \n-s: Saison\n-k: Liga\n-o: Output file"
@@ -67,6 +68,8 @@ def main(argv):
             kuerzel = arg
         elif opt in ('--output','-o'):
             output = arg
+        elif opt in ('--append','-a'):
+            append = True
     
     if(kuerzel == None):
             kuerzel = lookup(liga)
@@ -88,7 +91,8 @@ def main(argv):
 
     childrenM = marktwert.children
 
-    res = "Liga,Saison,Team,Marktwert,Platzierung,Punkte\n"
+    header = "Liga,Saison,Team,Marktwert,Platzierung,Punkte\n"
+    res = ""
     for child in childrenM:
         if(child == '\n'):
             continue
@@ -100,9 +104,12 @@ def main(argv):
         res += string_of_contents(liga,saison,Verein,Marktwert,standing,punkte)
 
 
-
-    with open(output,'w+') as data :
-        data.write(res)
+    if append:
+        with open(output,'a+') as data :
+            data.write(res)
+    else:
+        with open(output,'w+') as data :
+            data.write(header + res)
 
 
 
