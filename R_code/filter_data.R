@@ -1,4 +1,6 @@
-
+if("tidyverse" %in% rownames(installed.packages())== FALSE){
+  install.packages("tidyverse")
+}
 
 library(tidyverse)
 data <- read_csv("C:/Users/HP/OneDrive/Desktop/EWS_projekt_Datensatz_1.csv")
