@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import sys
+import sys, getopt
 
 def loadPage(url):
     headers = {
@@ -43,20 +43,45 @@ def string_of_contents(liga,saison,verein,marktwert,standing,punkte):
     return "{},{},{},{},{},{}\n".format(liga,saison,verein, marktwert,standing,punkte)
     
 
+def lookup(liga):
 
-def main():
-    if(len(sys.argv)<3):
-        print("not enough arguments")
-        return
-    liga = sys.argv[1]
-    saison= sys.argv[2]
-    if(len(sys.argv)>3):
-        kuerzel = sys.argv[3]
-    else:
-        kuerzel = lookup(liga)
+    return "L1"
+
+def main(argv):
+    opts,args = getopt.getopt(argv,"hl:o:k:s:",["help","liga=","saison","kuerzel=","output"])
+
+    liga = "Bundesliga"
+    saison = '2022'
+    kuerzel = 'L1'
+    output = 'data'
+    
+    for opt,arg in opts:
+        if opt in ("-h","--help"):
+            help = "Arguments: \n-l: Liga \n-s: Saison\n-k: Liga\n-o: Output file"
+            print(help)
+        elif opt in( '--liga', '-l'):
+            liga = arg
+        elif opt in ('--saison, -s'):
+            saison = arg
+        elif opt in ('--kuerzel','-k'):
+            kuerzel = arg
+        elif opt in ('--output','-o'):
+            output = arg
+    
+    if(kuerzel == None):
+            kuerzel = lookup(liga)
+
+    output +='.csv'
+
     url = "https://www.transfermarkt.de/{0}/startseite/wettbewerb/{1}/plus/?saison_id={2}".format(liga,kuerzel,saison)
+    
     htmlCode = loadPage(url)
+    if (htmlCode == None):
+        print("Arguments invalid or Server not reachable!")
+        return
+
     marktwert,tabelle = getTableBody(htmlCode)
+    
     if(tabelle ==None):
         print("Error: some elements not found")
         return
@@ -74,14 +99,12 @@ def main():
             
         res += string_of_contents(liga,saison,Verein,Marktwert,standing,punkte)
 
-    with open("data.csv",'w+') as data :
+
+
+    with open(output,'w+') as data :
         data.write(res)
 
-    if(res ==None):
-        print("Error: some elements not found")
-        return
-    # print(res.prettify())
 
 
 if __name__ =="__main__":
-    main()
+    main(sys.argv[1:])
