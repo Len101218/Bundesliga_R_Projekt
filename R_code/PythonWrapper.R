@@ -10,13 +10,13 @@ library(here)
 
 file <-here("python_Code/run.py")
 
-#import_from_path("LoadPageModule", path = here("python_Code"), FALSE)
+import_from_path("LoadPageModule", path = here("python_Code"), FALSE)
 
 source_python(file)
 
-load_data_from_website <- function(saison,liga,output="data",append = TRUE){
-  if(!is.numeric(saison)||!is.character(liga)||!is.character(output)||!is.logical(append))stop("One or more arguments are wrong: See help!")
-  arguments <- c("-s",saison,"-l",liga,"-o", output)
+load_data_from_website <- function(saison_von,saison_bis,liga,output="data",append = TRUE){
+  if(!is.numeric(saison_von)||!is.numeric(saison_bis)||!is.character(liga)||!is.character(output)||!is.logical(append))stop("One or more arguments are wrong: See help!")
+  arguments <- c("-v",saison_von,"-b",saison_bis,"-l",liga,"-o", output)
   if (append){
     arguments = append(arguments,"-a")
   }
@@ -25,16 +25,14 @@ load_data_from_website <- function(saison,liga,output="data",append = TRUE){
 
 load_leagues_and_saisons <- function(leagues,saison_von,saison_bis,output="data"){
   for(liga in leagues){
-    for(saison in saison_von:saison_bis){
-      load_data_from_website(saison,liga,output,TRUE)
-    }
+    load_data_from_website(saison_von,saison_bis,liga,output,TRUE)
   }
 }
 
 load_big_five <- function(){
   remove_file("BigFive.csv")
   system("echo \"Liga,Saison,Team,Marktwert,Platzierung,Punkte\"> \"BigFive.csv\"")
-  load_leagues_and_saisons(c("Bundesliga","Premier League","LaLiga","Ligue 1","Serie A"),2011,2021, "BigFive")
+  load_leagues_and_saisons(c("Bundesliga","Premier League","LaLiga","Ligue 1","Serie A"),2011,2022, "BigFive")
 }
 
 
