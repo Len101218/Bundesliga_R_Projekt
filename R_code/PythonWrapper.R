@@ -10,7 +10,8 @@ library(here)
 
 file <-here("python_Code/run.py")
 
-import_from_path("LoadPageModule", path = here("python_Code"), FALSE)
+#import_from_path("LoadPageModule", path = here("python_Code"), FALSE)
+
 source_python(file)
 
 load_data_from_website <- function(saison,liga,output="data",append = TRUE){
@@ -19,7 +20,7 @@ load_data_from_website <- function(saison,liga,output="data",append = TRUE){
   if (append){
     arguments = append(arguments,"-a")
   }
-  main(arguments)
+  load(arguments)
 }
 
 load_leagues_and_saisons <- function(leagues,saison_von,saison_bis,output="data"){

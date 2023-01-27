@@ -64,6 +64,7 @@ def lookup(liga):
           link = correct['href']
           parts = link.split("/")
           league = parts[1]
+          league = league[0].toUpperCase() + league[1:]
           kuerzel = parts[len(parts)-1]
           return league,kuerzel
     return None, None
