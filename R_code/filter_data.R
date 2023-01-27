@@ -33,7 +33,7 @@ read_data_from_csv <- function(relPath){
 #' @param saison_bis The last season from which you want to extract the data. It's set to 2023 /the actual year by default.
 #' If you want to extract data from the 2021/22 season set 'saison_bis = 2021'.
 #' @param teams A character-vector with the teams you're searching for. optional
-#' @param ligen A charcter-vector with the leagues you're searching for. optional 
+#' @param ligen A character-vector with the leagues you're searching for. optional 
 #' @param platzierungen A integer-vector with the end-season-placements optional
 #' @param punkte A integer-vector with the points you're searching for. optional
 #' @param marktwert_von A integer with the min-marketvalue you're searching for. 

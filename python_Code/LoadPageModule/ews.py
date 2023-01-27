@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import sys, getopt
+import getopt
 
 def loadPage(url):
     headers = {
@@ -30,6 +30,8 @@ def get_contents_Marktwert(soup):
     Marktwert_Spalte = soup.contents[7]
     Verein = Marktwert_Spalte.a['title']
     Marktwert = Marktwert_Spalte.a.string
+    Marktwert = Marktwert.replace(",","")
+    Marktwert = Marktwert.replace(" Mio. €","000000")
     return Verein,Marktwert
 
 
@@ -39,15 +41,34 @@ def get_contents_Tabelle(soup):
     return Standing,Punkte
 
 def string_of_contents(liga,saison,verein,marktwert,standing,punkte):
-    marktwert = marktwert.split(" ")[0]
+    #marktwert = marktwert.split(" ")[0]
     return "{},{},{},{},{},{}\n".format(liga,saison,verein, marktwert,standing,punkte)
     
 
 def lookup(liga):
+    kontinent = 'europa'
+    kontinentSites = 18
+    for page in range(1,kontinentSites+1):
+      url = "https://www.transfermarkt.de/wettbewerbe/{0}?ajax=yw1&page={1}".format(kontinent,page)
+      html = loadPage(url)
+      soup = BeautifulSoup(html, 'html.parser')
+      center = soup.find("div",attrs={"class":"large-8 columns"})
+      center = center.find("table",attrs={"class":"items"})
+      table = center.find("tbody")
+      children = table.children
+      for child in children:
+        if(child == '\n'):
+            continue
+        correct = child.find("a",string = liga)
+        if(correct!=None):
+          link = correct['href']
+          parts = link.split("/")
+          league = parts[1]
+          kuerzel = parts[len(parts)-1]
+          return league,kuerzel
+    return None, None
 
-    return "L1"
-
-def main(argv):
+def load(argv):
     opts,args = getopt.getopt(argv,"hl:o:k:s:a",["help","liga=","saison=","kuerzel=","output=","append"])
 
     liga = "Bundesliga"
@@ -58,21 +79,19 @@ def main(argv):
 
     for opt,arg in opts:
         if opt in ("-h","--help"):
-            help = "Arguments: \n-l: Liga \n-s: Saison\n-k: Liga\n-o: Output file"
+            help = "Arguments: \n-l: Liga \n-s: Saison\n-o: Output file"
             print(help)
+            exit(0)
         elif opt in( '--liga', '-l'):
             liga = arg
         elif opt in ('--saison, -s'):
             saison = arg
-        elif opt in ('--kuerzel','-k'):
-            kuerzel = arg
         elif opt in ('--output','-o'):
             output = arg
         elif opt in ('--append','-a'):
             append = True
     
-    if(kuerzel == None):
-            kuerzel = lookup(liga)
+    liga,kuerzel = lookup(liga)
 
     output +='.csv'
 
@@ -96,7 +115,7 @@ def main(argv):
     for child in childrenM:
         if(child == '\n'):
             continue
-        Verein,Marktwert = get_contents_Marktwert(child)
+        Verein, Marktwert = get_contents_Marktwert(child)
         content = tabelle.find(title=Verein).parent.parent.contents
         standing = content[1].contents[0]
         punkte = content[7].string
@@ -113,5 +132,4 @@ def main(argv):
 
 
 
-if __name__ =="__main__":
-    main(sys.argv[1:])
+
