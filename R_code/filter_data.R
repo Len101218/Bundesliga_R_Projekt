@@ -18,7 +18,7 @@ library(devtools)
 
 
 read_data_from_csv <- function(relPath){
-  if(!is.character(path))stop("One or more arguments are wrong: See help!")
+  if(!is.character(relPath))stop("One or more arguments are wrong: See help!")
   absPath <- here(relPath) 
   data <- read_csv(absPath)
 }
@@ -43,7 +43,7 @@ read_data_from_csv <- function(relPath){
 #' @export
 #'
 #' @examples
-filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwer_bis="ALLVALUESTO"){#TODO: use current year
+filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwert_bis="ALLVALUESTO"){#TODO: use current year
   
   
   
@@ -52,34 +52,53 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
     return("FEHLER: Es muss mindestens ein Team oder eine Liga übergeben werden!")
   }
   
-  if(!is.numeric(saison_von) || !is.numeric(saison_bis) || !is.character(teams) || !is.character(ligen) ||!(platzierungen=="ALLPLACES" || is.numerical(platzierungen)) || !(punkte=="ALLPOINTS"||is.numerical(punkte)) ||!(marktwert_von=="ALLVALUESFROM"||is.numerical(marktwert_von))|!(is.numerical(marktwer_bis)||marktwert_bis=="ALLVALUESTO")){
+  if(!is.numeric(saison_von) || !is.numeric(saison_bis) || !is.character(teams) || !is.character(ligen) ||!(platzierungen=="ALLPLACES" || is.numeric(platzierungen)) || !(punkte=="ALLPOINTS"||is.numeric(punkte)) ||!(marktwert_von=="ALLVALUESFROM"||is.numeric(marktwert_von))|!(is.numeric(marktwert_bis)||marktwert_bis=="ALLVALUESTO")){
     return("Ein/Mehrere Parameter wurden falsch übergeben!")
   }
+  actdata<-data
   
   #Filtern
-  data %>%
+  actdata %>%
     filter(Saison>=saison_von,Saison<=saison_bis)
+  
   if(teams!="ALLTEAMS"){
-    data %>%
+    actdata %>%
       filter(Team %in% teams)
   }
   if(ligen!="ALLLEAGUES"){
-    data %>%
+    actdata %>%
       filter(Liga %in% ligen)
+    
   }
   if(platzierungen!="ALLPLACES"){
-    data %>%
+    actdata %>%
       filter(Platzierung %in% platzierungen)
   }
   if(punkte!="ALLPOINTS"){
-    data %>%
+    actdata %>%
       filter(Punkte %in% punkte)
   }
-  if(marktwert!="ALLVALUES"){
-    data %>%
-      filter(Marktwert %in% marktwert)
+  if(marktwert_von!="ALLVALUESFROM"&&marktwert_bis!="ALLVALUESTO"){
+    actdata %>%
+      filter(Marktwert>=marktwert_von,Marktwert<=marktwert_bis)
   }
+  if(marktwert_von!="ALLVALUESFROM"&&marktwert_bis=="ALLVALUESTO"){
+    actdata %>%
+      filter(Marktwert>=marktwert_von)
+  }
+  if(marktwert_von=="ALLVALUESFROM"&&marktwert_bis!="ALLVALUESTO"){
+    actdata %>%
+      filter(Marktwert<=marktwert_bis)
+  }
+  return(actdata)
 }
+
+
+bigFive<-read_data_from_csv("C:/Users/HP/OneDrive/Dokumente/bundesliga_r_gruppe_38/CsvFiles/BigFive.csv") 
+
+filter_data(data=bigFive,saison_von=2016,saison_bis=2018,ligen="Bundesliga")
+
+
 
 
 
