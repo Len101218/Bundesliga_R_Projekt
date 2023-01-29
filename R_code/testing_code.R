@@ -14,6 +14,11 @@ library(tidyverse)
 library(usethis)
 library(devtools)
 
-bigFive<-read_data_from_csv("C:/Users/HP/OneDrive/Dokumente/bundesliga_r_gruppe_38/CsvFiles/BigFive.csv") 
+
+library(here)
+
+file <-here("CsvFiles/BigFive.csv")
+
+bigFive<-read_data_from_csv(file) 
 
 filter_data(data=bigFive,saison_von=2016,saison_bis=2018,ligen="Bundesliga")

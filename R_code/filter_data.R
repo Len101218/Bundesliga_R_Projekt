@@ -58,43 +58,45 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
   actdata<-data
   
   #Filtern
-  actdata %>%
+  actdata <- actdata %>%
     filter(Saison>=saison_von,Saison<=saison_bis)
   
   if(teams!="ALLTEAMS"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Team %in% teams)
   }
   if(ligen!="ALLLEAGUES"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Liga %in% ligen)
     
   }
   if(platzierungen!="ALLPLACES"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Platzierung %in% platzierungen)
   }
   if(punkte!="ALLPOINTS"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Punkte %in% punkte)
   }
   if(marktwert_von!="ALLVALUESFROM"&&marktwert_bis!="ALLVALUESTO"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Marktwert>=marktwert_von,Marktwert<=marktwert_bis)
   }
   if(marktwert_von!="ALLVALUESFROM"&&marktwert_bis=="ALLVALUESTO"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Marktwert>=marktwert_von)
   }
   if(marktwert_von=="ALLVALUESFROM"&&marktwert_bis!="ALLVALUESTO"){
-    actdata %>%
+    actdata <- actdata %>%
       filter(Marktwert<=marktwert_bis)
   }
   return(actdata)
 }
 
 
-bigFive<-read_data_from_csv("C:/Users/HP/OneDrive/Dokumente/bundesliga_r_gruppe_38/CsvFiles/BigFive.csv") 
+file <-here("CsvFiles/BigFive.csv")
+
+bigFive<-read_data_from_csv(file) 
 
 filter_data(data=bigFive,saison_von=2016,saison_bis=2018,ligen="Bundesliga")
 
