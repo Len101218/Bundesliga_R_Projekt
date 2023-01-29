@@ -107,11 +107,13 @@ categorize_data <-function(data){
   
   endyear<-actdata%>%
     summarize(Saison=max(Saison))
+  
+  list<-c()
 
   for(i in as.numeric(startyear[1,1]):as.numeric(endyear[1,1])){
     
     bl <-filter(actdata,Saison==i,Liga=="Bundesliga")
-    pl <-filter(actdata,Saison==i,Liga=="Premierleague")
+    pl <-filter(actdata,Saison==i,Liga=="Premier League")
     sa <-filter(actdata,Saison==i,Liga=="Serie A")
     l1 <-filter(actdata,Saison==i,Liga=="Ligue 1")
     ll <-filter(actdata,Saison==i,Liga=="LaLiga")
@@ -122,14 +124,40 @@ categorize_data <-function(data){
     l1mean <-mean(as.numeric(l1$Marktwert))
     llmean <-mean(as.numeric(ll$Marktwert))
     
-    mutate(bl,Marktwert=Marktwert/blmean)
-    mutate(pl,Marktwert=Marktwert/plmean)
-    mutate(sa,Marktwert=Marktwert/samean)
-    mutate(l1,Marktwert=Marktwert/l1mean)
-    mutate(ll,Marktwert=Marktwert/llmean)
+    bl<-mutate(bl,Marktwert=Marktwert/blmean)
+    pl<-mutate(pl,Marktwert=Marktwert/plmean)
+    sa<-mutate(sa,Marktwert=Marktwert/samean)
+    l1<-mutate(l1,Marktwert=Marktwert/l1mean)
+    ll<-mutate(ll,Marktwert=Marktwert/llmean)
     
-    actdata<-do.call("rbind",list(actdata,bl,pl,sa,l1,ll))
+    list<-append(list,list(bl,pl,sa,l1,ll))
   }
+  actdata<-do.call("rbind",list)
+  
+  actdata$Marktwert<-cut(actdata$Marktwert,breaks=c(0,0.5,1.5,100),labels=c('low','avg','high'))
+  
+  list2<-c()
+  
+  for(i in as.numeric(startyear[1,1]):as.numeric(endyear[1,1])){
+    
+    bl <-filter(actdata,Saison==i,Liga=="Bundesliga")
+    pl <-filter(actdata,Saison==i,Liga=="Premier League")
+    sa <-filter(actdata,Saison==i,Liga=="Serie A")
+    l1 <-filter(actdata,Saison==i,Liga=="Ligue 1")
+    ll <-filter(actdata,Saison==i,Liga=="LaLiga")
+    
+    
+    bl<-mutate(bl,Punkte=Punkte/34)
+    pl<-mutate(pl,Punkte=Punkte/38)
+    sa<-mutate(sa,Punkte=Punkte/38)
+    l1<-mutate(l1,Punkte=Punkte/38)
+    ll<-mutate(ll,Punkte=Punkte/38)
+    
+    list2<-append(list2,list(bl,pl,sa,l1,ll))
+  }
+  actdata<-do.call("rbind",list2)
+  
+  actdata$Punkte<-cut(actdata$Punkte,breaks=c(0,1,1.75,10),labels=c('end','mid','front'))
   
   return(actdata)
 }
