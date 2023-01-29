@@ -35,9 +35,9 @@ def get_contents_Marktwert(soup):
     Marktwert_Spalte = soup.contents[7]
     Verein = Marktwert_Spalte.a['title']
     Marktwert = Marktwert_Spalte.a.string
-    if("," in Maktwert):
+    if("," in Marktwert):
       kommaShift = Marktwert.index(" ")-Marktwert.index(",") -1
-    else 
+    else: 
       kommaShift = 0
     Marktwert = Marktwert.replace(" Mio. €",(6-kommaShift)*"0")
     Marktwert = Marktwert.replace(" Mrd. €",(9-kommaShift)*"0")
@@ -83,7 +83,7 @@ def lookup(liga):
 def load(argv):
     opts,args = getopt.getopt(argv,"hl:o:v:b:a",["help","liga=","von=","bis=","output=","append"])
 
-    liga = "Bundesliga"
+    liganame = "Bundesliga"
     von = None #default 2022
     bis = None
     output = 'data'
@@ -95,7 +95,7 @@ def load(argv):
             print(help)
             exit(0)
         elif opt in( '--liga', '-l'):
-            liga = arg
+            liganame = arg
         elif opt in ('--von, -v'):
             von = int(arg)
         elif opt in ('--bis, -b'):
@@ -112,10 +112,11 @@ def load(argv):
         bis= von+1
     elif von ==None:
         von = bis-1
-    elif not append:
+    elif (not append) and (bis-von)!=1:
         print("several saisons without appending makes no sense!")
+        exit(1);
 
-    liga,kuerzel = lookup(liga)
+    liga,kuerzel = lookup(liganame)
 
     output +='.csv'
     
@@ -151,8 +152,7 @@ def load(argv):
             standing = content[1].contents[0]
             punkte = content[7].string
             
-            res += string_of_contents(liga,saison,Verein,Marktwert,standing,punkte)
-
+            res += string_of_contents(liganame,saison,Verein,Marktwert,standing,punkte)
 
         if append:
             with open(output,'a+') as data :
