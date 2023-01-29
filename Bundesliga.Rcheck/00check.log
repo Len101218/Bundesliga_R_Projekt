@@ -1,0 +1,94 @@
+* using log directory ‘/home/len1218/Documents/public-obsidian/university/03/ews/R-Projekt/Bundesliga/Bundesliga.Rcheck’
+* using R version 4.2.2 Patched (2022-11-10 r83330)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘Bundesliga/DESCRIPTION’ ... OK
+* this is package ‘Bundesliga’ version ‘1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘Bundesliga’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... WARNING
+Found the following file with non-ASCII characters:
+  filter.R
+Portable packages must use only ASCII characters in their R code,
+except perhaps in comments.
+Use \uxxxx escapes for other characters.
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+filter_data: no visible global function definition for ‘%>%’
+filter_data: no visible global function definition for ‘filter’
+filter_data: no visible binding for global variable ‘Saison’
+filter_data: no visible binding for global variable ‘Team’
+filter_data: no visible binding for global variable ‘Liga’
+filter_data: no visible binding for global variable ‘Platzierung’
+filter_data: no visible binding for global variable ‘Punkte’
+filter_data: no visible binding for global variable ‘Marktwert’
+read_data_from_csv: no visible global function definition for ‘here’
+read_data_from_csv: no visible global function definition for
+  ‘read_csv’
+Undefined global functions or variables:
+  %>% Liga Marktwert Platzierung Punkte Saison Team filter here
+  read_csv
+Consider adding
+  importFrom("stats", "filter")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... ERROR
+Warning: parse error in file 'lines':
+6: unexpected symbol
+19: 
+20: this is
+         ^
+** will not attempt to run examples
+* checking examples ... SKIPPED
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+LaTeX errors found:
+! LaTeX Error: File `inconsolata.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.303 ^^M
+         
+!  ==> Fatal error occurred, no output PDF file produced!
+* checking PDF version of manual without index ... OK
+* DONE
+Status: 1 ERROR, 2 WARNINGs, 1 NOTE

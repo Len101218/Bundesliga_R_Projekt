@@ -1,13 +1,12 @@
-
 #Check ob alle benötigten Packages bereits installiert wurden, falls nicht werden diese installiert.
 if("tidyverse" %in% rownames(installed.packages())== FALSE){
-  install.packages("tidyverse")
+  install.packages("tidyverse", repos = "http://cran.us.r-project.org")
 }
 if("devtools" %in% rownames(installed.packages())== FALSE){
-  install.packages("devtools")
+  install.packages("devtools", repos = "http://cran.us.r-project.org")
 }
 if("here" %in% rownames(installed.packages())== FALSE){
-  install.packages("here")
+  install.packages("here", repos = "http://cran.us.r-project.org")
 }
 
 library(here)
@@ -42,13 +41,13 @@ read_data_from_csv <- function(relPath){
 #' @return database
 #' @export
 #'
-#' @examples
+#' @examples this is not an example
 filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwert_bis="ALLVALUESTO"){#TODO: use current year
   
   
   
   #falschen/schlechten Input abfangen
-  if(teams=="ALLTEAMS"&ligen=="ALLLEAGUES"){
+  if(teams=="ALLTEAMS" && ligen=="ALLLEAGUES"){
     return("FEHLER: Es muss mindestens ein Team oder eine Liga übergeben werden!")
   }
   
@@ -93,12 +92,9 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
   return(actdata)
 }
 
-
-file <-here("CsvFiles/BigFive.csv")
-
-bigFive<-read_data_from_csv(file) 
-
-filter_data(data=bigFive,saison_von=2016,saison_bis=2018,ligen="Bundesliga")
+categorize <-function(data){
+  
+}
 
 
 

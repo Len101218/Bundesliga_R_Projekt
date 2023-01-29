@@ -8,9 +8,9 @@ if("here" %in% rownames(installed.packages())== FALSE){
 library(reticulate)
 library(here)
 
-file <-here("python_Code/run.py")
+file <-here("Python/run.py")
 
-import_from_path("LoadPageModule", path = here("python_Code"), FALSE)
+import_from_path("LoadPageModule", path = here("Python"), FALSE)
 
 source_python(file)
 

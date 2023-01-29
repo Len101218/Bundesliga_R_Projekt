@@ -1,0 +1,89 @@
+\nonstopmode{}
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `Bundesliga'}}
+\par\bigskip{\large \today}
+\end{center}
+\inputencoding{utf8}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {Bundesliga: Analytical Functions And Data Around European Football Leagues}}}{}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdfauthor = {Len Bauer}}}{}
+\begin{description}
+\raggedright{}
+\item[Title]\AsIs{Analytical Functions And Data Around European Football Leagues}
+\item[Version]\AsIs{1.0}
+\item[Description]\AsIs{This package provides data to market values and rankings of the last periods of the european football leagues. Functions to analyse their connectivity threw an ... test are provided.}
+\item[License]\AsIs{MIT + file LICENSE}
+\item[Encoding]\AsIs{UTF-8}
+\item[Roxygen]\AsIs{list(markdown = TRUE)}
+\item[RoxygenNote]\AsIs{7.2.3}
+\item[Suggests]\AsIs{testthat (>= 3.0.0)}
+\item[Config/testthat/edition]\AsIs{3}
+\item[NeedsCompilation]\AsIs{no}
+\item[Author]\AsIs{Len Bauer [aut, cre] (<}\url{https://orcid.org/0000-0002-2822-4802}\AsIs{>)}
+\item[Maintainer]\AsIs{Len Bauer }\email{lh.bauer18@gmail.com}\AsIs{}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{filter\_data}{filter\_data}{filter.Rul.data}
+%
+\begin{Description}\relax
+Filter data by parameter. You have to put in at least the season you want to start extracting data and one team or league you want to gather data from!
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+filter_data(
+  data,
+  saison_von,
+  saison_bis = 2022,
+  teams = "ALLTEAMS",
+  ligen = "ALLLEAGUES",
+  platzierungen = "ALLPLACES",
+  punkte = "ALLPOINTS",
+  marktwert_von = "ALLVALUESFROM",
+  marktwert_bis = "ALLVALUESTO"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{data}] database you are looking through
+
+\item[\code{saison\_von}] The first season from which you want to extract the data. If you want to extract data from the 2018/19 season set 'saison\_von = 2018'.
+
+\item[\code{saison\_bis}] The last season from which you want to extract the data. It's set to 2023 /the actual year by default.
+If you want to extract data from the 2021/22 season set 'saison\_bis = 2021'.
+
+\item[\code{teams}] A character-vector with the teams you're searching for. optional
+
+\item[\code{ligen}] A character-vector with the leagues you're searching for. optional
+
+\item[\code{platzierungen}] A integer-vector with the end-season-placements optional
+
+\item[\code{punkte}] A integer-vector with the points you're searching for. optional
+
+\item[\code{marktwert\_von}] A integer with the min-marketvalue you're searching for.
+
+\item[\code{marktwert\_bis}] A integer with the max-marketvalue you're searching for. optional
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+database
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+this is not an example
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}
