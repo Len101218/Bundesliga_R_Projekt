@@ -110,11 +110,11 @@ categorize_data <-function(data){
 
   for(i in as.numeric(startyear[1,1]):as.numeric(endyear[1,1])){
     
-    bl <-filter(data,Saison==i,Liga=="Bundesliga")
-    pl <-filter_data(data,Saison==i,Liga=="Premier-league")
-    sa <-filter_data(data,Saison==i,Liga=="Serie-a")
-    l1 <-filter_data(data,Saison==i, ligen=="Ligue-1")
-    ll <-filter_data(data,Saison==i, Liga=="LaLiga")
+    bl <-filter(actdata,Saison==i,Liga=="Bundesliga")
+    pl <-filter(actdata,Saison==i,Liga=="Premierleague")
+    sa <-filter(actdata,Saison==i,Liga=="Serie A")
+    l1 <-filter(actdata,Saison==i,Liga=="Ligue 1")
+    ll <-filter(actdata,Saison==i,Liga=="LaLiga")
     
     blmean <-mean(as.numeric(bl$Marktwert))
     plmean <-mean(as.numeric(pl$Marktwert))
@@ -128,6 +128,7 @@ categorize_data <-function(data){
     mutate(l1,Marktwert=Marktwert/l1mean)
     mutate(ll,Marktwert=Marktwert/llmean)
     
+    actdata<-do.call("rbind",list(actdata,bl,pl,sa,l1,ll))
   }
   
   return(actdata)
