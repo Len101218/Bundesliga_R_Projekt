@@ -35,9 +35,12 @@ def get_contents_Marktwert(soup):
     Marktwert_Spalte = soup.contents[7]
     Verein = Marktwert_Spalte.a['title']
     Marktwert = Marktwert_Spalte.a.string
-    kommaShift = Marktwert.index(" ")-Marktwert.index(",") -1
+    if("," in Maktwert):
+      kommaShift = Marktwert.index(" ")-Marktwert.index(",") -1
+    else 
+      kommaShift = 0
     Marktwert = Marktwert.replace(" Mio. €",(6-kommaShift)*"0")
-    Marktwert = Marktwert.replace(" Mia. €",(9-kommaShift)*"0")
+    Marktwert = Marktwert.replace(" Mrd. €",(9-kommaShift)*"0")
     Marktwert = Marktwert.replace(" Tsd. €",(3-kommaShift)*"0")
     Marktwert = Marktwert.replace(",","")
     return Verein,Marktwert

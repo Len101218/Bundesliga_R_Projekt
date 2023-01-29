@@ -5,7 +5,7 @@ Authors@R:
     c(
     person("Len", "Bauer", , "lh.bauer18@gmail.com", role = c("aut","cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-2822-4802"))
-           )
+      )
 Description: This package provides data to market values and rankings of the last periods of the european football leagues. Functions to analyse their connectivity threw an ... test are provided.
 License: MIT + file LICENSE
 Encoding: UTF-8
