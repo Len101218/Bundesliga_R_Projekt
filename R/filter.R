@@ -101,33 +101,34 @@ categorize_data <-function(data){
   medianwert_seriea=0
   medianwert_ligue1=0
   medianwert_laliga=0
-  for(i in 2011:2021){
+  
+  startyear<-actdata%>%
+    summarize(Saison=min(Saison))
+  
+  endyear<-actdata%>%
+    summarize(Saison=max(Saison))
+
+  for(i in as.numeric(startyear[1,1]):as.numeric(endyear[1,1])){
     
-    bl <-filter_data(data,saison_von=i,saison_bis=i, ligen="Bundesliga")
-    pl <-filter_data(data,saison_von=i,saison_bis=i, ligen="Premier-league")
-    sa <-filter_data(data,saison_von=i,saison_bis=i, ligen="Serie-a")
-    l1 <-filter_data(data,saison_von=i,saison_bis=i, ligen="Ligue-1")
-    ll <-filter_data(data,saison_von=i,saison_bis=i, ligen="LaLiga")
+    bl <-filter(data,Saison==i,Liga=="Bundesliga")
+    pl <-filter_data(data,Saison==i,Liga=="Premier-league")
+    sa <-filter_data(data,Saison==i,Liga=="Serie-a")
+    l1 <-filter_data(data,Saison==i, ligen=="Ligue-1")
+    ll <-filter_data(data,Saison==i, Liga=="LaLiga")
     
-    bl <-mean(as.numeric(bl$Marktwert))
-    pl <-mean(as.numeric(pl$Marktwert))
-    sa <-mean(as.numeric(sa$Marktwert))
-    l1 <-mean(as.numeric(l1$Marktwert))
-    ll <-mean(as.numeric(ll$Marktwert))
+    blmean <-mean(as.numeric(bl$Marktwert))
+    plmean <-mean(as.numeric(pl$Marktwert))
+    samean <-mean(as.numeric(sa$Marktwert))
+    l1mean <-mean(as.numeric(l1$Marktwert))
+    llmean <-mean(as.numeric(ll$Marktwert))
     
-    medianwert_buli[i-2010]=bl
-    medianwert_pl[i-2010]=pl
-    medianwert_seriea[i-2010]=sa
-    medianwert_ligue1[i-2010]=l1
-    medianwert_laliga[i-2010]=ll
+    mutate(bl,Marktwert=Marktwert/blmean)
+    mutate(pl,Marktwert=Marktwert/plmean)
+    mutate(sa,Marktwert=Marktwert/samean)
+    mutate(l1,Marktwert=Marktwert/l1mean)
+    mutate(ll,Marktwert=Marktwert/llmean)
+    
   }
-  
-  actdata<-actdata%>%arrange(Liga)
-  
-  for(i in 1:10){
-    actdata[(18*(i-1)+1):18*i,4]=as.double(actdata[(18*(i-1)+1):18*i,4])./medianwert_buli[i]
-  }
-  
   
   return(actdata)
 }

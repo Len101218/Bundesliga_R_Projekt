@@ -22,4 +22,5 @@ if(!exists("filter_data", mode="function")) source(here("R/filter.R"))
 
 bigFive<-read_data_from_csv(here("Csv/BigFive.csv")) 
 
-filter_data(data=bigFive,saison_von=2016,saison_bis=2018,ligen="Premier-league")
+result<-categorize_data(bigFive)
+result
