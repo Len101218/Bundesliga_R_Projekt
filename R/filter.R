@@ -92,8 +92,44 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
   return(actdata)
 }
 
-categorize <-function(data){
+categorize_data <-function(data){
+  actdata<-data
+  actdata$Platzierung<-cut(data$Platzierung,breaks=c(0,6,12,21),labels=c('front','mid','end'))
   
+  medianwert_buli=0
+  medianwert_pl=0
+  medianwert_seriea=0
+  medianwert_ligue1=0
+  medianwert_laliga=0
+  for(i in 2011:2021){
+    
+    bl <-filter_data(data,saison_von=i,saison_bis=i, ligen="Bundesliga")
+    pl <-filter_data(data,saison_von=i,saison_bis=i, ligen="Premier-league")
+    sa <-filter_data(data,saison_von=i,saison_bis=i, ligen="Serie-a")
+    l1 <-filter_data(data,saison_von=i,saison_bis=i, ligen="Ligue-1")
+    ll <-filter_data(data,saison_von=i,saison_bis=i, ligen="LaLiga")
+    
+    bl <-mean(as.numeric(bl$Marktwert))
+    pl <-mean(as.numeric(pl$Marktwert))
+    sa <-mean(as.numeric(sa$Marktwert))
+    l1 <-mean(as.numeric(l1$Marktwert))
+    ll <-mean(as.numeric(ll$Marktwert))
+    
+    medianwert_buli[i-2010]=bl
+    medianwert_pl[i-2010]=pl
+    medianwert_seriea[i-2010]=sa
+    medianwert_ligue1[i-2010]=l1
+    medianwert_laliga[i-2010]=ll
+  }
+  
+  actdata<-actdata%>%arrange(Liga)
+  
+  for(i in 1:10){
+    actdata[(18*(i-1)+1):18*i,4]=as.double(actdata[(18*(i-1)+1):18*i,4])./medianwert_buli[i]
+  }
+  
+  
+  return(actdata)
 }
 
 
