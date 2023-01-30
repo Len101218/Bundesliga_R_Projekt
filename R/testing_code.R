@@ -22,5 +22,4 @@ if(!exists("filter_data", mode="function")) source(here("R/filter.R"))
 
 bigFive<-read_data_from_csv(here("Csv/BigFive.csv")) 
 
-result<-categorize_data(bigFive)
-result
+plot_last10years(bigFive,"Manchester City")
