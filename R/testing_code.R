@@ -23,3 +23,5 @@ if(!exists("filter_data", mode="function")) source(here("R/filter.R"))
 bigFive<-read_data_from_csv(here("Csv/BigFive.csv")) 
 
 plot_last10years(bigFive,"Manchester City")
+
+#plot_oneleague(bigFive,liga="Premier League")
