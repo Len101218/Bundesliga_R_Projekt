@@ -93,70 +93,14 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
 }
 
 categorize_data <-function(data){
-  actdata<-data
-  actdata$Platzierung<-cut(data$Platzierung,breaks=c(0,6,12,21),labels=c('front','mid','end'))
-  
-  medianwert_buli=0
-  medianwert_pl=0
-  medianwert_seriea=0
-  medianwert_ligue1=0
-  medianwert_laliga=0
-  
-  startyear<-actdata%>%
-    summarize(Saison=min(Saison))
-  
-  endyear<-actdata%>%
-    summarize(Saison=max(Saison))
-  
-  list<-c()
-
-  for(i in as.numeric(startyear[1,1]):as.numeric(endyear[1,1])){
-    
-    bl <-filter(actdata,Saison==i,Liga=="Bundesliga")
-    pl <-filter(actdata,Saison==i,Liga=="Premier League")
-    sa <-filter(actdata,Saison==i,Liga=="Serie A")
-    l1 <-filter(actdata,Saison==i,Liga=="Ligue 1")
-    ll <-filter(actdata,Saison==i,Liga=="LaLiga")
-    
-    blmean <-mean(as.numeric(bl$Marktwert))
-    plmean <-mean(as.numeric(pl$Marktwert))
-    samean <-mean(as.numeric(sa$Marktwert))
-    l1mean <-mean(as.numeric(l1$Marktwert))
-    llmean <-mean(as.numeric(ll$Marktwert))
-    
-    bl<-mutate(bl,Marktwert=Marktwert/blmean)
-    pl<-mutate(pl,Marktwert=Marktwert/plmean)
-    sa<-mutate(sa,Marktwert=Marktwert/samean)
-    l1<-mutate(l1,Marktwert=Marktwert/l1mean)
-    ll<-mutate(ll,Marktwert=Marktwert/llmean)
-    
-    list<-append(list,list(bl,pl,sa,l1,ll))
-  }
-  actdata<-do.call("rbind",list)
+  actdata <- data %>%
+      group_by(Liga,Saison)%>%
+        mutate(meanM=mean(Marktwert),countP=2*n(),Marktwert,Team)%>%
+          ungroup()%>%
+            mutate(Marktwert = Marktwert/meanM,Punkte = Punkte/countP,.keep = "unused")
   
   actdata$Marktwert<-cut(actdata$Marktwert,breaks=c(0,0.5,1.5,100),labels=c('low','avg','high'))
-  
-  list2<-c()
-  
-  for(i in as.numeric(startyear[1,1]):as.numeric(endyear[1,1])){
-    
-    bl <-filter(actdata,Saison==i,Liga=="Bundesliga")
-    pl <-filter(actdata,Saison==i,Liga=="Premier League")
-    sa <-filter(actdata,Saison==i,Liga=="Serie A")
-    l1 <-filter(actdata,Saison==i,Liga=="Ligue 1")
-    ll <-filter(actdata,Saison==i,Liga=="LaLiga")
-    
-    
-    bl<-mutate(bl,Punkte=Punkte/34)
-    pl<-mutate(pl,Punkte=Punkte/38)
-    sa<-mutate(sa,Punkte=Punkte/38)
-    l1<-mutate(l1,Punkte=Punkte/38)
-    ll<-mutate(ll,Punkte=Punkte/38)
-    
-    list2<-append(list2,list(bl,pl,sa,l1,ll))
-  }
-  actdata<-do.call("rbind",list2)
-  
+  actdata$Platzierung<-cut(data$Platzierung,breaks=c(0,6,12,21),labels=c('front','mid','end'))
   actdata$Punkte<-cut(actdata$Punkte,breaks=c(0,1,1.75,10),labels=c('end','mid','front'))
   
   return(actdata)
