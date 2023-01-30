@@ -16,7 +16,7 @@ source_python(file)
 
 load_data_from_website <- function(saison_von,saison_bis,liga,output="data",append = TRUE){
   if(!is.numeric(saison_von)||!is.numeric(saison_bis)||!is.character(liga)||!is.character(output)||!is.logical(append))stop("One or more arguments are wrong: See help!")
-  arguments <- c("-v",saison_von,"-b",saison_bis,"-l",liga,"-o", output)
+  arguments <- c("-v",saison_von,"-b",saison_bis,"-l",liga,"-o", paste("Csv/",output))
   if (append){
     arguments = append(arguments,"-a")
   }
@@ -49,7 +49,7 @@ remove_all_csv_Files <- function(data=FALSE){
   else{
     res = system("ls |grep .csv | grep -xv \"data.csv\"")
     if(res==0){
-    system("ls |grep .csv | grep -xv \"data.csv\" | xargs rm")
+    system("ls Csv |grep .csv | grep -xv \"data.csv\" | xargs rm")
     }
   }
 }
