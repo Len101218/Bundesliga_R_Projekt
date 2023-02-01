@@ -4,4 +4,6 @@
 .Ruserdata
 *.csv
 /Bundesliga.Rcheck/*
+/..Rcheck/*
+/...Rcheck/*
 !Csv/*

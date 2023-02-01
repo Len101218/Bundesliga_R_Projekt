@@ -1,8 +1,0 @@
-* using log directory ‘/home/len1218/Documents/public-obsidian/university/03/ews/R-Projekt/Bundesliga/...Rcheck’
-* using R version 4.2.2 Patched (2022-11-10 r83330)
-* using platform: x86_64-pc-linux-gnu (64-bit)
-* using session charset: UTF-8
-* checking for file ‘../DESCRIPTION’ ... ERROR
-File DESCRIPTION does not exist
-* DONE
-Status: 1 ERROR
