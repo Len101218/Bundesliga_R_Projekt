@@ -3,7 +3,7 @@ if(!"tidyverse" %in% rownames(installed.packages())){
   install.packages("tidyverse")
 }
 if(!"devtools" %in% rownames(installed.packages())){
-  install.packages("devtools")
+  install.packages("devtools",repos = "http://cran.us.r-project.org")
 }
 if(!"here" %in% rownames(installed.packages())){
   install.packages("here")
@@ -23,4 +23,4 @@ if(!exists("filter_data", mode="function")) source(here("R/filter.R"))
 bigFive<-read_data_from_csv(here("Csv/BigFive.csv")) 
 
 result<-categorize_data(bigFive)
-result
+# result

@@ -1,8 +1,8 @@
 if("reticulate" %in% rownames(installed.packages())== FALSE){
-  install.packages("reticulate")
+  install.packages("reticulate",repos = "http://cran.us.r-project.org")
 }
 if("here" %in% rownames(installed.packages())== FALSE){
-  install.packages("here")
+  install.packages("here",repos = "http://cran.us.r-project.org")
 }
 
 library(reticulate)
@@ -14,6 +14,24 @@ import_from_path("LoadPageModule", path = here("Python"), FALSE)
 
 source_python(file)
 
+
+
+
+
+#' Title
+#'
+#' @param saison_von 
+#' @param saison_bis 
+#' @param liga 
+#' @param output 
+#' @param append 
+#'
+#' @return
+#' @export
+#'
+#'@importFrom 
+#'
+#' @examples
 load_data_from_website <- function(saison_von,saison_bis,liga,output="data",append = TRUE){
   if(!is.numeric(saison_von)||!is.numeric(saison_bis)||!is.character(liga)||!is.character(output)||!is.logical(append))stop("One or more arguments are wrong: See help!")
   arguments <- c("-v",saison_von,"-b",saison_bis,"-l",liga,"-o", paste("Csv/",output))
@@ -47,9 +65,9 @@ remove_all_csv_Files <- function(data=FALSE){
     system("rm *.csv")
   }
   else{
-    res = system("ls |grep .csv | grep -xv \"data.csv\"")
+    res = system("tree . |grep .csv | grep -xv \"Csv/data.csv\" | grep -xv \"Csv/BigFive.csv\" ")
     if(res==0){
-    system("ls Csv |grep .csv | grep -xv \"data.csv\" | xargs rm")
+    system("find . -regex \"^.*\\.csv$\"|grep -v \"data.csv\" | grep -v \"BigFive.csv\" | xargs rm")
     }
   }
 }

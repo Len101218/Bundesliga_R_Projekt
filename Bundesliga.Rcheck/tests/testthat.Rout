@@ -51,8 +51,8 @@ The following object is masked from 'package:testthat':
 Rows: 1078 Columns: 6
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (3): Liga, Team, Marktwert
-dbl (3): Saison, Platzierung, Punkte
+chr (2): Liga, Team
+dbl (4): Saison, Marktwert, Platzierung, Punkte
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -60,4 +60,4 @@ dbl (3): Saison, Platzierung, Punkte
 > 
 > proc.time()
    user  system elapsed 
-  4.026   3.006   4.552 
+  3.888   3.022   4.193 
