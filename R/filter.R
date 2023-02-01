@@ -107,6 +107,16 @@ categorize_data <-function(data){
 }
 
 
+get_lastfullseason<-function(){
+  actualseason=as.integer(format(Sys.Date(), "%Y"))-2
+  
+  if(format(Sys.Date(),"%b")=="Jul"||format(Sys.Date(),"%b")=="Aug"||format(Sys.Date(),"%b")=="Sep"||format(Sys.Date(),"%b")=="Oct"||format(Sys.Date(),"%b")=="Nov"||format(Sys.Date(),"%b")=="Dec"){
+    actualseason=actualseason+1
+  }
+  
+  return(actualseason)
+}
+
 
 
 
