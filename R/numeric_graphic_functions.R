@@ -1,6 +1,6 @@
 
 
-plot_last10years<-function(data,team){
+plot_last10years<-function(data,team){#fängt bei 0 an?
   
   actualseason=get_lastfullseason()
     
@@ -23,11 +23,11 @@ plot_last10years<-function(data,team){
 
 }
 
-plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
+plot_oneleague<-function(data,liga,saison=get_lastfullseason()){#Teams y-achse tabelle/punkte
   actdata<-filter_data(data,saison_von=saison,saison_bis=saison,ligen=liga)
   
   actdata<-actdata%>%
-    mutate(Marktwert=Marktwert/1000000)
+    mutate(Marktwert=Marktwert/1e6)
   
   maxmarketvalue<-as.numeric(actdata%>%summarise(Marktwert=max(Marktwert)))
   options(scipen=999)
