@@ -95,9 +95,9 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
 categorize_data <-function(data){
   actdata <- data %>%
       group_by(Liga,Saison)%>%
-        mutate(meanM=mean(Marktwert),countP=2*n(),Marktwert,Team)%>%
+        mutate(meanM=mean(Marktwert),countGames=2*n(),Marktwert,Team)%>%
           ungroup()%>%
-            mutate(Marktwert = Marktwert/meanM,Punkte = Punkte/countP,.keep = "unused")
+            mutate(Marktwert = Marktwert/meanM,Punkte = Punkte/countGames,.keep = "unused")
   
   actdata$Marktwert<-cut(actdata$Marktwert,breaks=c(0,0.5,1.5,100),labels=c('low','avg','high'))
   actdata$Platzierung<-cut(data$Platzierung,breaks=c(0,6,12,21),labels=c('front','mid','end'))
