@@ -26,7 +26,12 @@ bigFive<-read_data_from_csv(here("Csv/BigFive.csv"))
 #result<-categorize_data(bigFive)
 # result
 
-#plot_last10years(bigFive,"Manchester City")
+#plot_last10years(bigFive,"FC Schalke 04",categoric=TRUE)
 
-plot_oneleague(bigFive,liga="Premier League")
+#bigFiveOneSeason<-filter_data(data=bigFive,saison_bis=get_lastfullseason(),saison_von=get_lastfullseason())
 
+#plot_data(bigFive)
+
+#plot_oneleague(data=bigFive,"Premier League")
+
+frame_performance(bigFive,-2)
