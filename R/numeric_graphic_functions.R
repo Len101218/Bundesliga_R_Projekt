@@ -32,10 +32,10 @@ plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
   maxmarketvalue<-as.numeric(actdata%>%summarise(Marktwert=max(Marktwert)))
   options(scipen=999)
   
-  plot<-ggplot(data=actdata,aes(y=reorder(Team,-Marktwert),x=Marktwert))+
+  plot<-ggplot(data=actdata,aes(y=reorder(Team,-Platzierung),x=Marktwert))+
     geom_point(stat="identity")+
     scale_x_continuous(expand=c(0,0),limits=c(0,maxmarketvalue+100))+
-    ylab(paste(liga,"-Teams Saison ",saison,sep=""))+
+    ylab(paste(liga,"-Platzierungen der Teams in ",saison," (absteigend)",sep=""))+
     xlab("Marktwert in Mio.")
   
   return(plot)

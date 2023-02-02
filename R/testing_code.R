@@ -28,5 +28,5 @@ bigFive<-read_data_from_csv(here("Csv/BigFive.csv"))
 
 #plot_last10years(bigFive,"Manchester City")
 
-#plot_oneleague(bigFive,liga="Premier League")
+plot_oneleague(bigFive,liga="Premier League")
 
