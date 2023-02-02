@@ -99,9 +99,9 @@ categorize_data <-function(data){
           ungroup()%>%
             mutate(Marktwert = Marktwert/meanM,Punkte = Punkte/countGames,.keep = "unused")
   
-  actdata$Marktwert<-cut(actdata$Marktwert,breaks=c(0,0.5,1.5,100),labels=c('low','avg','high'))
-  actdata$Platzierung<-cut(data$Platzierung,breaks=c(0,6,12,21),labels=c('front','mid','end'))
-  actdata$Punkte<-cut(actdata$Punkte,breaks=c(0,1,1.75,10),labels=c('end','mid','front'))
+  actdata$Marktwert<-cut(actdata$Marktwert,breaks=categorized_Markt,labels=c('low','avg','high'))
+  actdata$Platzierung<-cut(data$Platzierung,breaks=categorized_Platzierung,labels=c('front','mid','end'))
+  actdata$Punkte<-cut(actdata$Punkte,breaks=categorized_Punkte,labels=c('end','mid','front'))
   
   return(actdata)
 }
