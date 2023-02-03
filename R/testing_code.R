@@ -25,13 +25,13 @@ bigFive<-read_data_from_csv(here("Csv/BigFive.csv"))
 
 #result<-categorize_data(bigFive)
 # result
-load_leagues_and_saisons(c("2.Bundesliga","Bundesliga"),2010,2021,"vfl")
-plot_last10years(bigFive,"VfL Bochum",categoric=TRUE)
+
+#plot_last10years(bigFive,"FC Schalke 04",categoric=FALSE)
 
 #bigFiveOneSeason<-filter_data(data=bigFive,saison_bis=2018,saison_von=2018)
 
 #plot_data_placements(bigFiveOneSeason)
 
-#plot_oneleague(data=bigFive,"Premier League")
+plot_oneleague(data=bigFive,"Premier League",2018)
 
 #frame_performance(bigFive,-2)

@@ -16,6 +16,16 @@ library(devtools)
 
 
 
+#' read_data_from_csv
+#'
+#' Generates your data out of a CSV.
+#'
+#' @param relPath The sourcepath of your CSV.
+#'
+#' @return Returns your data.
+#' @export
+#'
+#' @examples read_data_from_csv("< your cs-path >")
 read_data_from_csv <- function(relPath){
   if(!is.character(relPath))stop("One or more arguments are wrong: See help!")
   absPath <- here(relPath) 
@@ -41,7 +51,7 @@ read_data_from_csv <- function(relPath){
 #' @return database
 #' @export
 #'
-#' @examples this is not an example
+#' @examples filter_data(data,saison_von=2015,saison_bis=2019,teams=c("FC Augsburg", "VfL Bochum"))          
 filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwert_bis="ALLVALUESTO"){#TODO: use current year
   
   
@@ -92,6 +102,16 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
   return(actdata)
 }
 
+#' categorize_data
+#' 
+#' Categorizes your data (Marktwert, Platzierung and Punkte) from continuous/discrete values to categoric values.
+#'
+#' @param data The data you want to categorize.
+#'
+#' @return Returns your data. But categorized.
+#' @export
+#'
+#' @examples categorize_data(data)
 categorize_data <-function(data){
   actdata <- data %>%
       group_by(Liga,Saison)%>%
@@ -107,6 +127,14 @@ categorize_data <-function(data){
 }
 
 
+#' get_lastfullseason
+#' 
+#' Gets you the last fully completed season.
+#'
+#' @return Returns you an integer.
+#' @export
+#'
+#' @examples
 get_lastfullseason<-function(){
   actualseason=as.integer(format(Sys.Date(), "%Y"))-1
   month <- format(Sys.Date(),"%b")

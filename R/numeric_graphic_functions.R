@@ -1,4 +1,16 @@
 
+#' plot_last10years
+#' 
+#' Plots the performance of one team over the last 10 years.
+#'
+#' @param data The data, which you want to use.
+#' @param team The team you want to get the performance from.
+#' @param categoric If true you plot in categoric variables. If false you plot continuous.
+#'
+#' @return Returns a plot.
+#' @export
+#'
+#' @examples plot_last10years(data,"FC Schalke 04",categoric=TRUE)
 plot_last10years<-function(data,team,categoric=TRUE){
   if(categoric){
     actualseason=get_lastfullseason()
@@ -41,6 +53,19 @@ plot_last10years<-function(data,team,categoric=TRUE){
 
 }
 
+#' plot_oneleague
+#' 
+#' Plots marketvalue and placements of  one single season from the choosen league.
+#' The red lines symbolize the categoric classification of "Marktwert" and "Platzierung".
+#'
+#' @param data The data you want to plot.
+#' @param liga The league you want to plot.
+#' @param saison The season you want to plot.
+#'
+#' @return Returns a plot.
+#' @export
+#'
+#' @examples plot_oneleague(data,"Premier League", 2018)
 plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
   actdata<-filter_data(data,saison_von=saison,saison_bis=saison,ligen=liga)
   
@@ -67,6 +92,16 @@ plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
   return(plot)
 }
 
+#' plot_data_points
+#'
+#' Plots marketvalue and points of your data.
+#'
+#'@param data The data you want to plot from.
+#'
+#' @return Returns a plot.
+#' @export
+#'
+#' @examples plot_data_points(data)
 plot_data_points<-function(data){
   actdata1 <- data %>%
     filter(Liga=="Bundesliga")%>%
@@ -109,6 +144,16 @@ plot_data_points<-function(data){
   
 }
 
+#' plot_data_placements
+#'
+#' Plots marketvalue and placements of your data
+#'
+#' @param data The data you want to plot from.
+#'
+#' @return Returns a plot.
+#' @export
+#'
+#' @examples plot_data_placements(data)
 plot_data_placements<-function(data){
   
   actdata<-data%>%
@@ -134,6 +179,17 @@ plot_data_placements<-function(data){
   
 }
 
+#' frame_performance
+#'
+#' Gives you a frame, which only contains really good (2), good (1), normal (0), bad (-1), really bad (-1) team-performances. 
+#'
+#' @param data The data you want to be rated.
+#' @param performance The performances you´re looking for. Put in qn element of {-2,-1,0,1,2}.
+#'
+#' @return Returns a dataframe.
+#' @export
+#'
+#' @examples frame_performance(data,2) returns a frame consisting out of teams with low marketvalue and high placement.
 frame_performance<-function(data,performance){
   actdata<-categorize_data(data)
 
