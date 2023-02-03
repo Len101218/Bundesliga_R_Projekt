@@ -1,5 +1,4 @@
 
-
 plot_last10years<-function(data,team,categoric=TRUE){
   if(categoric){
     actualseason=get_lastfullseason()
@@ -111,15 +110,15 @@ plot_data<-function(data){
 }
 
 frame_performance<-function(data,performance){
-  actdata<-categorize_data
-  return(actdata)
+  actdata<-categorize_data(data)
+
   if(performance==0){
-    actdata<-actdata%>%
+      actdata<-actdata%>%
       filter((Marktwert=="high"&Platzierung=="front")||(Marktwert=="avg"&Platzierung=="mid")||(Marktwert=="low"&Platzierung=="end"))
   }
   if(performance==1){
     actdata<-actdata%>%
-      filter((Marktwert=="low"&Platzierung=="mid")||(Marktwert=="avg"&Platzierung=="front"))
+    filter((Marktwert=="low"&Platzierung=="mid")|(Marktwert=="avg"&Platzierung=="front"))
   }
   if(performance==2){
     actdata<-actdata%>%
@@ -131,7 +130,7 @@ frame_performance<-function(data,performance){
   }
   if(performance==-1){
     actdata<-actdata%>%
-      filter((Marktwert=="high"&Platzierung=="mid")||(Marktwert=="avg"&Platzierung=="end"))
+      filter((Marktwert=="high"&Platzierung=="mid")|(Marktwert=="avg"&Platzierung=="end"))
   }
   
   return(actdata)
