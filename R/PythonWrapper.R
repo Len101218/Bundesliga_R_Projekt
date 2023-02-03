@@ -50,7 +50,7 @@ load_leagues_and_saisons <- function(leagues,saison_von,saison_bis,output="data"
 load_big_five <- function(){
   remove_file("Csv/BigFive.csv")
   system("echo \"Liga,Saison,Team,Marktwert,Platzierung,Punkte\"> \"Csv/BigFive.csv\"")
-  load_leagues_and_saisons(c("Bundesliga","Premier League","LaLiga","Ligue 1","Serie A"),2011,2022, "Csv/BigFive")
+  load_leagues_and_saisons(c("Bundesliga","Premier League","LaLiga","Ligue 1","Serie A"),2011,2022, "BigFive")
 }
 
 
