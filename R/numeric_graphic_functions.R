@@ -67,7 +67,7 @@ plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
   return(plot)
 }
 
-plot_data<-function(data){
+plot_data_points<-function(data){
   actdata1 <- data %>%
     filter(Liga=="Bundesliga")%>%
     mutate(Punkte=round((Punkte/34)*38))
@@ -103,6 +103,31 @@ plot_data<-function(data){
     geom_hline(yintercept=1.75*meanpoints,color="red")+
     scale_x_continuous(expand=c(0,0),limits=c(0,maxmarketvalue+0.5))+
     scale_y_continuous(expand=c(0,0),limits=c(0,maxpoints+5))+
+    xlab("Marktwerts-Quotient")
+  
+  return(plot)
+  
+}
+
+plot_data_placements<-function(data){
+  
+  actdata<-data%>%
+    group_by(Liga,Saison)%>%
+    mutate(meanM=mean(Marktwert))%>%
+    ungroup()%>%
+    mutate(Marktwert = Marktwert/meanM,.keep = "unused")
+  
+  maxmarketvalue<-as.numeric(actdata%>%summarise(Marktwert=max(Marktwert)))
+  options(scipen=999)
+  
+  plot<-ggplot(data=actdata,aes(y=Platzierung,x=Marktwert))+
+    geom_point(stat="identity",aes(color=Liga))+
+    geom_vline(xintercept=0.5,color="red")+
+    geom_vline(xintercept=1.5,color="red")+
+    geom_hline(yintercept=6.5,color="red")+
+    geom_hline(yintercept=12.5,color="red")+
+    scale_x_continuous(expand=c(0,0),limits=c(0,maxmarketvalue+0.5))+
+    scale_y_continuous(expand=c(0,0),limits=c(0,21))+
     xlab("Marktwerts-Quotient")
   
   return(plot)
