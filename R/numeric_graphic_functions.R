@@ -12,7 +12,7 @@
 #'
 #' @examples plot_last10years(data,"FC Schalke 04",categoric=TRUE)
 plot_last10years<-function(data,team,categoric=TRUE){
-  if(categoric){
+  if(categoric==TRUE){
     actualseason=get_lastfullseason()
     actdata<-categorize_data(data)
     actdata<-filter_data(actdata,saison_von=actualseason-9,saison_bis=actualseason,teams=team)
@@ -83,8 +83,8 @@ plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
     geom_point(stat="identity")+
     geom_vline(xintercept=0.5*mean,color="red")+
     geom_vline(xintercept=1.5*mean,color="red")+
-    geom_hline(yintercept=6.5,color="red")+
-    geom_hline(yintercept=12.5,color="red")+
+    geom_hline(yintercept=8.5,color="red")+
+    geom_hline(yintercept=14.5,color="red")+
     scale_x_continuous(expand=c(0,0),limits=c(0,maxmarketvalue+100))+
     ylab(paste(liga,"-Platzierungen der Teams in ",saison," (absteigend)",sep=""))+
     xlab("Marktwert in Mio.")

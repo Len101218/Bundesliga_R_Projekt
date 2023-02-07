@@ -20,7 +20,7 @@ library(here)
 
 if(!exists("filter_data", mode="function")) source(here("R/filter.R"))
 
-bigFive<-read_data_from_csv(here("Csv/BigFive.csv")) 
+#bigFive<-read_data_from_csv(here("Csv/BigFive.csv")) 
 
 
 #result<-categorize_data(bigFive)
@@ -30,8 +30,8 @@ bigFive<-read_data_from_csv(here("Csv/BigFive.csv"))
 
 #bigFiveOneSeason<-filter_data(data=bigFive,saison_bis=2018,saison_von=2018)
 
-#plot_data_placements(bigFiveOneSeason)
+#plot_data_placements(bigFive)
 
-plot_oneleague(data=bigFive,"Premier League",2018)
+#plot_oneleague(data=bigFive,"Premier League",2021)
 
-#frame_performance(bigFive,-2)
+frame_performance(bigFive,-2)
