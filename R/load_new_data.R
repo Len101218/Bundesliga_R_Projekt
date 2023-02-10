@@ -1,14 +1,16 @@
 file <-here("Python/run.py")
 
-import_from_path("LoadPageModule", path = here("Python"), FALSE)
-
-source_python(file)
 
 
 if(!system("pyv=\"$(python -V)\" | echo $pyv| grep \"Python\"")){
   print("Python not installed!")
   return()
 }
+tryCatch({
+import_from_path("LoadPageModule", path = here("Python"), FALSE)
+
+source_python(file)
+},finally = {})
 
 
 #' Title
