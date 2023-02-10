@@ -10,8 +10,6 @@ tryCatch({
 import_from_path("LoadPageModule", path = here("Python"), FALSE)
 
 source_python(file)
-},finally = {})
-
 
 #' Title
 #'
@@ -61,8 +59,16 @@ remove_all_csv_Files <- function(data=FALSE){
   else{
     res = system("tree . |grep .csv | grep -xv \"Csv/data.csv\" | grep -xv \"Csv/BigFive.csv\" ")
     if(res==0){
-    system("find . -regex \"^.*\\.csv$\"|grep -v \"data.csv\" | grep -v \"BigFive.csv\" | xargs rm")
+      system("find . -regex \"^.*\\.csv$\"|grep -v \"data.csv\" | grep -v \"BigFive.csv\" | xargs rm")
     }
   }
 }
+
+
+
+
+
+},finally = {})
+
+
 
