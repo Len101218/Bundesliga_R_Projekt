@@ -46,7 +46,22 @@ Zur besseren Übersichtlichtkeit wird mit "plot_data_points noch eine Funktion b
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
 plot_data_placements(data=bigFive)
 ```
+Auch diese Plots unterstützen die Aussagen der anderen Plots, die einen Zusammenhang zwischen Marktwert und Platzierung nahe legen.
 
 
-Zuletzt wurden mit "filter_data()" und 
+Zuletzt wurden mit "filter_data()" und frame_performance() zwei numerische Methoden bereitgestellt mit den man "BigFive "durchforsten" kann. 
+Mit "filter_data()" ist es möglich den zu analysierenden Datensatz nach Saisons, Teams, Ligen, Punkten und Marktwerten zu filtern und den so produzierten neuen Datensatz beispielsweise mit "plot_data_placements()" zu plotten:
+
+```{r  warning=FALSE,message=FALSE,error=FALSE}
+filter_data(data=bigFive,saison_von=2015,saison_bis=2019,teams=c("FC Augsburg"))
+```
+
+Für genauere Informationen gerne "?filter_data" aufrufen! 
+Mit "frame_perfomance()" ist es möglich einen Datensatz bezüglich einer bestimmten Leitung zu filtern´. Dabei kann von "überdurchschnittlich schlecht" (-2) über "schlecht" (-1) und "Durchschnitt" (0) bis zu "überdurschnittlich gut" (2) gefiltert werden:
+
+```{r  warning=FALSE,message=FALSE,error=FALSE}
+frame_performance(data=bigFive,-2)
+```
+
+Die AS Monaco ist also das einzige Team aus dem Datensatz "bigFive", das mit einem "high"-Kaderwert eine "end"-Platzierung erreichte. Auch diese Tatsache untermauert eine Korellation zwischen den zu untersuchenden Variablen.
 

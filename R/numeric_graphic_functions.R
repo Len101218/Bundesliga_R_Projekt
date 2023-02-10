@@ -17,7 +17,6 @@ plot_last10years<-function(data,team,categoric=TRUE){
     actualseason=get_lastfullseason()
     actdata<-categorize_data(data)
     actdata<-filter_data(actdata,saison_von=actualseason-9,saison_bis=actualseason,teams=team)
-    print(actdata)
     
     league<-as.character(actdata[1,1])
    
@@ -35,7 +34,6 @@ plot_last10years<-function(data,team,categoric=TRUE){
   actualseason=get_lastfullseason()
     
   actdata<-filter_data(data,saison_von=actualseason-9,saison_bis=actualseason,teams=team)
-  print(actdata)
   
   league<-as.character(actdata[1,1])
   

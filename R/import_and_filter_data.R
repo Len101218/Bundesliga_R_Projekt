@@ -38,11 +38,6 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
   
   
   
-  #falschen/schlechten Input abfangen
-  if(teams=="ALLTEAMS" && ligen=="ALLLEAGUES"){
-    #return("FEHLER: Es muss mindestens ein Team oder eine Liga übergeben werden!")
-  }
-  
   if(!is.numeric(saison_von) || !is.numeric(saison_bis) || !is.character(teams) || !is.character(ligen) ||!(platzierungen=="ALLPLACES" || is.numeric(platzierungen)) || !(punkte=="ALLPOINTS"||is.numeric(punkte)) ||!(marktwert_von=="ALLVALUESFROM"||is.numeric(marktwert_von))|!(is.numeric(marktwert_bis)||marktwert_bis=="ALLVALUESTO")){
     return("Ein/Mehrere Parameter wurden falsch übergeben!")
   }
