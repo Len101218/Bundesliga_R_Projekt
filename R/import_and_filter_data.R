@@ -1,7 +1,3 @@
-
-
-
-
 #' read_data_from_csv
 #'
 #' Generates your data out of a CSV.
@@ -10,7 +6,7 @@
 #'
 #' @return Returns your data.
 #' @export
-#'
+#' @import here
 #' @examples read_data_from_csv("< your cs-path >")
 read_data_from_csv <- function(relPath){
   if(!is.character(relPath))stop("One or more arguments are wrong: See help!")
