@@ -6,7 +6,7 @@ Authors@R:
     c(
     person("Len", "Bauer", , "lh.bauer18@gmail.com", role = c("aut","cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-2822-4802")),
-    person("David","Schwefel",email = "davidschwefel1234@gmail.com"), role = c("aut")
+    person("David","Schwefel",email = "davidschwefel1234@gmail.com", role = c("aut"))
       )
 Description: This package provides data to market values and rankings of the last periods of the european football leagues. Functions to analyse their dependency threw a chi-squared test are provided.
 License: MIT + file LICENSE
