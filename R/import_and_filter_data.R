@@ -1,18 +1,4 @@
-#Check ob alle benötigten Packages bereits installiert wurden, falls nicht werden diese installiert.
-if("tidyverse" %in% rownames(installed.packages())== FALSE){
-  install.packages("tidyverse", repos = "http://cran.us.r-project.org")
-}
-if("devtools" %in% rownames(installed.packages())== FALSE){
-  install.packages("devtools", repos = "http://cran.us.r-project.org")
-}
-if("here" %in% rownames(installed.packages())== FALSE){
-  install.packages("here", repos = "http://cran.us.r-project.org")
-}
 
-library(here)
-library(tidyverse)
-library(usethis)
-library(devtools)
 
 
 
@@ -29,7 +15,7 @@ library(devtools)
 read_data_from_csv <- function(relPath){
   if(!is.character(relPath))stop("One or more arguments are wrong: See help!")
   absPath <- here(relPath) 
-  data <- read_csv(absPath)
+  return (read_csv(absPath))
 }
 
 
@@ -141,7 +127,6 @@ get_lastfullseason<-function(){
   if(!month  %in% c("Jul","Aug","Sep","Oct","Nov","Dec")){
     actualseason=actualseason-1
   }
-  
   return(actualseason)
 }
 

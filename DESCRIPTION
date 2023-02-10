@@ -1,12 +1,14 @@
 Package: Bundesliga
+Type: Package
 Title: Analytical Functions And Data Around European Football Leagues
 Version: 1.0
 Authors@R: 
     c(
     person("Len", "Bauer", , "lh.bauer18@gmail.com", role = c("aut","cre"),
-           comment = c(ORCID = "https://orcid.org/0000-0002-2822-4802"))
+           comment = c(ORCID = "https://orcid.org/0000-0002-2822-4802")),
+    person("David","Schwefel",email = "davidschwefel1234@gmail.com"), role = c("aut")
       )
-Description: This package provides data to market values and rankings of the last periods of the european football leagues. Functions to analyse their connectivity threw an ... test are provided.
+Description: This package provides data to market values and rankings of the last periods of the european football leagues. Functions to analyse their dependency threw a chi-squared test are provided.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,3 +19,7 @@ Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
+Imports:
+  infer,
+  tidyverse,
+  here

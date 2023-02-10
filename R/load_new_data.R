@@ -1,13 +1,3 @@
-if("reticulate" %in% rownames(installed.packages())== FALSE){
-  install.packages("reticulate",repos = "http://cran.us.r-project.org")
-}
-if("here" %in% rownames(installed.packages())== FALSE){
-  install.packages("here",repos = "http://cran.us.r-project.org")
-}
-
-library(reticulate)
-library(here)
-
 file <-here("Python/run.py")
 
 import_from_path("LoadPageModule", path = here("Python"), FALSE)
@@ -52,7 +42,6 @@ load_big_five <- function(){
   system("echo \"Liga,Saison,Team,Marktwert,Platzierung,Punkte\"> \"Csv/BigFive.csv\"")
   load_leagues_and_saisons(c("Bundesliga","Premier League","LaLiga","Ligue 1","Serie A"),2011,2022, "BigFive")
 }
-
 
 remove_file <- function(file){
   if(system(paste("ls |grep ",file))==0)
