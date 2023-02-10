@@ -12,7 +12,8 @@
 #'
 #' @examples plot_last10years(data,"FC Schalke 04",categoric=TRUE)
 plot_last10years<-function(data,team,categoric=TRUE){
-  if(categoric==TRUE){
+  if(categoric){
+    
     actualseason=get_lastfullseason()
     actdata<-categorize_data(data)
     actdata<-filter_data(actdata,saison_von=actualseason-9,saison_bis=actualseason,teams=team)
@@ -30,6 +31,7 @@ plot_last10years<-function(data,team,categoric=TRUE){
   
   }
   else{
+   
   actualseason=get_lastfullseason()
     
   actdata<-filter_data(data,saison_von=actualseason-9,saison_bis=actualseason,teams=team)
@@ -56,7 +58,7 @@ plot_last10years<-function(data,team,categoric=TRUE){
 #' plot_oneleague
 #' 
 #' Plots marketvalue and placements of  one single season from the choosen league.
-#' The red lines symbolize the categoric classification of "Marktwert" and "Platzierung".
+#' The red lines is symbolizing the categoric classification of "Marktwert" and "Platzierung".
 #'
 #' @param data The data you want to plot.
 #' @param liga The league you want to plot.
@@ -86,7 +88,7 @@ plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
     geom_hline(yintercept=8.5,color="red")+
     geom_hline(yintercept=14.5,color="red")+
     scale_x_continuous(expand=c(0,0),limits=c(0,maxmarketvalue+100))+
-    ylab(paste(liga,"-Platzierungen der Teams in ",saison," (absteigend)",sep=""))+
+    ylab(paste(liga,"-Platzierungen der Teams in ",saison," (abst.)",sep=""))+
     xlab("Marktwert in Mio.")
   
   return(plot)

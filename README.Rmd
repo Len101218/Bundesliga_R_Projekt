@@ -21,8 +21,32 @@ Da das Projekt nahezu nirgends hardgecodet wurde ist es einem Nutzer, der PyChar
 Um den Datensatz zu genauer zu analysieren und sich ein Verständnis von den Daten zu verschaffen wurden mehrere graphische und numerische Funktionen erstellt. Dabei lässt sich oft ein Zusammenhang zwischen Marktwert und Platzierung der einzelnen Teams erahnen.
 
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
-plot_last10years(bigFive,"FC Schalke 04",categoric=TRUE)
+library(tidyverse)
+library(Bundesliga)
+plot_last10years(bigFive,"FC Schalke 04")
 ```
 
-Die Funktion "plot_last10years(bigFive,"FC SChalke 04")" plottet die Saison-Endplatzierungen
+Die Funktion "plot_last10years(bigFive,"FC SChalke 04")" plottet die Saison-Endplatzierungen von "FC Schalke 04" über die vergangenen 10 Jahre (bzw. die Anzahl an Jahren in denen es in einer Top-5-Liga gespielt hat (hier also alle Saisons bis auf 2021/22)). Dabei ist es möglich zwischen einem kategorischen Plot der Variablen und einem nichtkategorischen Plot mithilfe der Variable "categoric" zu wählen. Dieser Beispielplot legt einen direkten Zusammenhang zwischen den im Test zu untersuchenden Variablen Marktwert und Platzierung nahe. Dennoch darf die Aussage dieses Graphen nicht überbewertet werden, da die Variablen hier in diesem Beispiel abhängig voneinander sind.
+
+"plot_oneleague()" dagegen plottet den Marktwert und die Endplatzierung einer bestimmten Saison aus einer Liga des Datensatzes (also von unabhängigen Variablen).
+
+```{r  warning=FALSE,message=FALSE,error=FALSE}
+plot_oneleague(data=bigFive,liga="Premier League",saison=2021)
+```
+
+Bei den im Plot zu erkennenden roten Linien handelt es sich um die Trenngrenzen der einzelnen Kategorien. Im rechten, oberen Quadranten befinden sich also alle Teams der Premier League-Saison 2021/22 die eine Endplatzierung der Kategorie "front" erreicht haben und zugleich einen "high"-Marktwert besitzen. Auch dieser Plot legt einen Zusammenhang zwischen Marktwert und Platzierung nahe.
+
+Ein ähnlicher, aber weitaus größerer Plot wird durch "plot_data_placements()" erzeugt. Hier wird für alle im übergebenen Datensatz enthaltenen Reihen die Platzierung gegen den Marktwertsquotient aufgetragen:
+
+```{r  warning=FALSE,message=FALSE,error=FALSE}
+plot_data_placements(data=bigFive)
+```
+Zur besseren Übersichtlichtkeit wird mit "plot_data_points noch eine Funktion bereitgestellt die die Punktanzahl  gegen den Marktwertsquotienten plottet:
+
+```{r  warning=FALSE,message=FALSE,error=FALSE}
+plot_data_placements(data=bigFive)
+```
+
+
+Zuletzt wurden mit "filter_data()" und 
 
