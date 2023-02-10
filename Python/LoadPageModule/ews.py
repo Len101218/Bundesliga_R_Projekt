@@ -1,7 +1,7 @@
-
-import requests
-from bs4 import BeautifulSoup
-import getopt
+try:
+  import requests
+  from bs4 import BeautifulSoup
+  import getopt
   
   
   def hlp(tit):
@@ -165,5 +165,5 @@ import getopt
   
 except ImportError as e:
     def load(argv):
-        print("you can't use load(). Some modules not installed!")
+      print("you can't use load(). Some modules not installed!")
 
