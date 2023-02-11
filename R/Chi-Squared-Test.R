@@ -60,7 +60,7 @@ chi_squared_test <- function(data,method,reps){
   dist_plot <- res %>%
     visualize(bins = 15,
               method = method,
-              dens_color = "blue") + 
+              dens_color = "blue") +
     labs(
       x = "x",
       y = "Verteilung",
