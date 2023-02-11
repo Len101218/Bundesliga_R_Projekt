@@ -51,10 +51,10 @@ chi_squared_test <- function(data,method,reps){
   obs_stat <- data %>%
     hypothesise(null ="independence")%>%
     calculate(stat = "Chisq")
-  view(obs_stat)
+  #view(obs_stat)
   p_val <- get_p_value(res,obs_stat = obs_stat, direction = "greater")
-  view(p_val)
-  view(res)
+  #view(p_val)
+  print(res)
   
   #visualization of distribution
   dist_plot <- res %>%
