@@ -8,10 +8,10 @@ filter_data(
   data,
   saison_von,
   saison_bis = 2022,
-  teams = "ALLTEAMS",
-  ligen = "ALLLEAGUES",
-  platzierungen = "ALLPLACES",
-  punkte = "ALLPOINTS",
+  teams = c("ALLTEAMS"),
+  ligen = c("ALLLEAGUES"),
+  platzierungen = c("ALLPLACES"),
+  punkte = c("ALLPOINTS"),
   marktwert_von = "ALLVALUESFROM",
   marktwert_bis = "ALLVALUESTO"
 )

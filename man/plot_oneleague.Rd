@@ -18,7 +18,7 @@ Returns a plot.
 }
 \description{
 Plots marketvalue and placements of  one single season from the choosen league.
-The red lines symbolize the categoric classification of "Marktwert" and "Platzierung".
+The red lines is symbolizing the categoric classification of "Marktwert" and "Platzierung".
 }
 \examples{
 plot_oneleague(data,"Premier League", 2018)

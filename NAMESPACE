@@ -2,6 +2,7 @@
 
 export()
 export(categorize_data)
+export(chi_squared_test)
 export(filter_data)
 export(frame_performance)
 export(get_lastfullseason)
