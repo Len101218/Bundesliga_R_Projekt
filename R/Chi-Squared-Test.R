@@ -54,7 +54,7 @@ chi_squared_test <- function(data,method,reps){
   #view(obs_stat)
   p_val <- get_p_value(res,obs_stat = obs_stat, direction = "greater")
   #view(p_val)
-  print(res)
+  print(p_val)
   
   #visualization of distribution
   dist_plot <- res %>%
