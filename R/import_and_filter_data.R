@@ -34,7 +34,7 @@ read_data_from_csv <- function(relPath){
 #' @export
 #'
 #' @examples filter_data(data,saison_von=2015,saison_bis=2019,teams=c("FC Augsburg", "VfL Bochum"))          
-filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="ALLLEAGUES",platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwert_bis="ALLVALUESTO"){#TODO: use current year
+filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen=c("ALLLEAGUES"),platzierungen="ALLPLACES", punkte="ALLPOINTS",marktwert_von="ALLVALUESFROM",marktwert_bis="ALLVALUESTO"){#TODO: use current year
   
   
   
@@ -51,7 +51,7 @@ filter_data <- function(data,saison_von,saison_bis=2022,teams="ALLTEAMS",ligen="
     actdata <- actdata %>%
       filter(Team %in% teams)
   }
-  if(ligen!="ALLLEAGUES"){
+  if(ligen!=c("ALLLEAGUES")){
     actdata <- actdata %>%
       filter(Liga %in% ligen)
     

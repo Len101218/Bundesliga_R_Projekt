@@ -65,3 +65,23 @@ frame_performance(data=bigFive,-2)
 
 Die AS Monaco ist also das einzige Team aus dem Datensatz "bigFive", das mit einem "high"-Kaderwert eine "end"-Platzierung erreichte. Auch diese Tatsache untermauert eine Korellation zwischen den zu untersuchenden Variablen.
 
+
+
+# Induktive Analyse
+
+Um nun letzendlich die Abhängigkeit tatsächlich zu überprüfen, haben wir einen Chi-Quadrat Unabhängigkeitstest durchgeführt.
+Dieser kann wahlweise mit einem theorethischen Ansatz oder durch resampling durchgeführt werden.
+
+Konkret bedeutet dies folgende Hypothese:
+
+```math
+H_0: \text{Die Zufallsvariablen Marktwert und Platzierung sind unabhängig.}\quad H_1: \text{Die Zufallsvariablen Marktwert und Platzierung sind abhängig.}
+
+```
+
+Mithilfe der Funktion Chi_squared_test(), kann eine Chi-Quadrat Verteilung geplottet werden und der dazugehörige p-Wert berechnet werden.
+Hierzu wird mithilfe des Parameters 'method' eine passende Methode zur Berechnung oder Approximation der Chi-Quadrat Verteilung bestimmt werden.
+
+```{r warning=FALSE , message }
+
+```

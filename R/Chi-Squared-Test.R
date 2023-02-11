@@ -20,6 +20,16 @@
 
 
 
+#' Title
+#'
+#' @param data 
+#' @param method 
+#' @param reps 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 chi_squared_test <- function(data,method,reps){
   data <- data %>%
     categorize_data %>%
