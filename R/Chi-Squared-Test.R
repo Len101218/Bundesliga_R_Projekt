@@ -1,38 +1,20 @@
-#bigFive <- read_data_from_csv(here("Csv/BigFive.csv"))
-#result<- bigFive %>%filter_data(2021)%>%
-#  categorize_data()%>%
-#  specify(Marktwert ~ Platzierung)%>%
-#  hypothesize(null = "independence") %>%
-#  generate(reps = 10000, type ="permute") %>%
-#  calculate(stat = "Chisq") %>%
-#  visualise(bins = 100)+
-#  shade_p_value(obs_stat = 10, direction = "greater")
-#result
-
-#result<- bigFive %>%filter_data(2021)%>%
-#  categorize_data()%>%
-#  specify(Marktwert ~ Platzierung)%>%
-#  assume(distribution = "Chisq")%>%
-#  visualise()+
-#  shade_p_value(obs_stat = 10, direction = "greater")
-#result
-
-
-
-
-#' Title
-#'
-#' @param data 
-#' @param method 
-#' @param reps 
+#' Chi_squared_test
+#' @description   Führt einen Chi-Quadrat-Unabhängigkeitstest durch, wahlweise basierend auf einem theoretischenoder einem resampling Ansatz.
+#' @param data    DataFrame (noch unkategorisiert), welches die zu testenden Zufallsvariablen (Spalten), Marktwert und Platzierung enthalten sollte.
+#' @param method    Wähle zwischen "theory" und "simulation"
+#' @param reps    Nur für den resample (simulation) Ansatz benötigt und gibt die Anzahl der permutions an.
 #'
 #' @return No return value
 #' @export
 #'
 #' @import infer
 #' @import tidyverse
-#' @examples chi_squared_test(bigFive,"theory",1000)
-chi_squared_test <- function(data,method,reps){
+#' 
+#' @examples 
+#' filtered_data <- filter_data(bigFive,saison_von = 2021)
+#' chi_squared_test(filtered_data,"theory")
+#' chi_squared_test(filtered_data,"simulation",1000)
+  chi_squared_test <- function(data,method,reps){
   data <- data %>%
     categorize_data %>%
     specify(Marktwert ~ Platzierung) 
@@ -47,15 +29,14 @@ chi_squared_test <- function(data,method,reps){
         generate(reps = reps, type = "permute")%>%
         calculate(stat = "Chisq")
     }else{
-      #throw error
+      stop("Wähle zwischen \"theory\" oder \"simulation\"")
     }
   
   obs_stat <- data %>%
     hypothesise(null ="independence")%>%
     calculate(stat = "Chisq")
-  #view(obs_stat)
+  
   p_val <- get_p_value(res,obs_stat = obs_stat, direction = "greater")
-  #view(p_val)
   print(p_val)
   
   #visualization of distribution
@@ -64,13 +45,9 @@ chi_squared_test <- function(data,method,reps){
               method = method,
               dens_color = "blue") + 
     labs(
-      x = "x",
+      x = "X",
       y = "Verteilung",
-      title = paste0(
-        "Simulierte ",
-        ifelse(method == "both", "und theoretische ", ""),
-        "Chi-Quadrat-Verteilung"
-      )
+      title = paste(method,"based chi-squared-distribution")
     ) +
     theme_light()
     dist_plot <- dist_plot +

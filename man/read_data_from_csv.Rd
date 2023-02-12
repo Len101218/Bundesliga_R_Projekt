@@ -16,5 +16,5 @@ Returns your data.
 Generates your data out of a CSV.
 }
 \examples{
-read_data_from_csv("< your cs-path >")
+read_data_from_csv("Csv/bigFive.csv")
 }

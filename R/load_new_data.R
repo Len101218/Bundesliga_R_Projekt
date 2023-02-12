@@ -7,11 +7,12 @@ if(!system("pyv=\"$(python -V)\" | echo $pyv| grep \"Python\"")){
   return()
 }
 tryCatch({
+  #' @name Load_Data_From_Transfermarkt.de
+
 import_from_path("LoadPageModule", path = here("Python"), FALSE)
 
 source_python(file)
 
-#' Title
 #'
 #' @param saison_von 
 #' @param saison_bis 
@@ -19,12 +20,13 @@ source_python(file)
 #' @param output 
 #' @param append 
 #'
-#' @return
+#' @return No return value
 #' @export
 #'
-#'@importFrom 
+#' @import reticulate
+#' here
 #'
-#' @examples
+#' @examples load_data_from_website(2005,2007,"2. Bundesliga","2.Bundesliga",FALSE)
 load_data_from_website <- function(saison_von,saison_bis,liga,output="data",append = TRUE){
   if(!is.numeric(saison_von)||!is.numeric(saison_bis)||!is.character(liga)||!is.character(output)||!is.logical(append))stop("One or more arguments are wrong: See help!")
   arguments <- c("-v",saison_von,"-b",saison_bis,"-l",liga,"-o", paste("Csv/",output))
@@ -64,11 +66,4 @@ remove_all_csv_Files <- function(data=FALSE){
   }
 }
 
-
-
-
-
 },finally = {})
-
-
-

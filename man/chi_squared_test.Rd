@@ -2,23 +2,25 @@
 % Please edit documentation in R/Chi-Squared-Test.R
 \name{chi_squared_test}
 \alias{chi_squared_test}
-\title{Title}
+\title{Chi_squared_test}
 \usage{
 chi_squared_test(data, method, reps)
 }
 \arguments{
-\item{data}{}
+\item{data}{DataFrame (noch unkategorisiert), welches die zu testenden Zufallsvariablen (Spalten), Marktwert und Platzierung enthalten sollte.}
 
-\item{method}{}
+\item{method}{Wähle zwischen "theory" und "simulation"}
 
-\item{reps}{}
+\item{reps}{Nur für den resample (simulation) Ansatz benötigt und gibt die Anzahl der permutions an.}
 }
 \value{
 No return value
 }
 \description{
-Title
+Führt einen Chi-Quadrat-Unabhängigkeitstest durch, wahlweise basierend auf einem theoretischenoder einem resampling Ansatz.
 }
 \examples{
-chi_squared_test(bigFive,"theory",1000)
+filtered_data <- filter_data(bigFive,saison_von = 2021)
+chi_squared_test(filtered_data,"theory")
+chi_squared_test(filtered_data,"simulation",1000)
 }

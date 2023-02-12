@@ -7,7 +7,7 @@
 #' @return Returns your data.
 #' @export
 #' @import here
-#' @examples read_data_from_csv("< your cs-path >")
+#' @examples read_data_from_csv("Csv/bigFive.csv")
 read_data_from_csv <- function(relPath){
   if(!is.character(relPath))stop("One or more arguments are wrong: See help!")
   absPath <- here(relPath) 
@@ -111,7 +111,6 @@ categorize_data <-function(data){
 #' @return Returns you an integer.
 #' @export
 #'
-#' @examples
 get_lastfullseason<-function(){
   actualseason=as.integer(format(Sys.Date(), "%Y"))-1
   month <- format(Sys.Date(),"%b")
