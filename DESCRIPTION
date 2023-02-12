@@ -22,4 +22,5 @@ LazyData: true
 Imports:
   infer,
   tidyverse,
-  here
+  here,
+  reticulate
