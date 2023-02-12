@@ -1,92 +1,145 @@
-# Bundesliga_R_Gruppe_38
+1.  Übersicht
 
+Dieses Paket enthält die Ordner “Csv”, “Python” und “R” sowie dieses
+README “README\_Gruppe\_38”. Der hier betrachtete Datensatz beeinhaltet
+Informationen über die letzten 10 Saisons der aktuell besten fünf
+europäischen Fußball-Ligen (nach dem aktuellsten Update der
+UEFA-5-Jahreswertung). Dabei speichert der Datensatz die Variablen
+“Liga”, “Saison” (es wird nur das kleinere Jahr einer Saison angegeben;
+z.B wird die Saison 2021/22 unter 2021 abgespeichert), “Team”,
+“Marktwert”, “Platzierung” und “Punkte”. Beschafft wurde diese Variablen
+indem sie mithilfe eines Pythonskripts von der Webiste
+“transfermarkt.de” gecrawlt wurden. Ziel des Projektes ist es die
+Variablen “Platzierung” und “Marktwert” bezüglich der Saison 2021/22
+mithilfe eines Chi-Quadrat-Tests basierend auf der Resampling-Methode
+auf Unabhängigkeit zu untersuchen. Da diese zwei Variablen im Datensatz
+nicht kategorisch vorliegen und es somit schwierig wäre diese Variablen
+auf Unabhängigkeit zu untersuchen wurde die Methode categorize\_data()
+bereitgestellt, die diese Variablen kategorisiert. Dabei wurden die
+Tabellenplatzierungen der Teams in die Kategorien “front” (Platz 1-6),
+“mid” (Platz 7-12) und “end” (Platz 13-18/20) eingeteilt. Der Marktwert
+der Teams wurde jeweils durch den Durchschnittsmarktwert der jeweiligen
+Liga des Teams in der Saison 2021/22 geteilt. Anschließend wurden die
+Teams anhand ihres Marktwertsquotienten in die Kategorien “high”
+(1.5,inf), “avg” (0.5,1.5) und “low” (0,0.5) überführt. Falls
+Unklarheiten zu categorize\_data() oder anderen im Projekt enthaltenen
+Methoden besteht ist es möglich mit dem “help”-Befehl die Dokumentation
+zu öffnen. Da das Projekt nahezu nirgends hardgecodet wurde ist es einem
+Nutzer, der PyCharm o.Ä Umgebungen zum ausführen von Pythoncode besitzt,
+mit den angebenen Methoden möglich seine eigenen Datensatz von
+“www.transfermarkt.de” zu crawlen und einen Chi-Quadrat-Test mit diesen
+Daten durchzuführen.
 
+1.  Installation
 
-## Getting started
+2.  Explorative Analyse
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Um den Datensatz zu genauer zu analysieren und sich ein Verständnis von
+den Daten zu verschaffen wurden mehrere graphische und numerische
+Funktionen erstellt. Dabei lässt sich oft ein Zusammenhang zwischen
+Marktwert und Platzierung der einzelnen Teams erahnen.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+    library(tidyverse)
+    library(Bundesliga)
+    plot_last10years(bigFive,"FC Schalke 04")
 
-## Add your files
+![](README_files/figure-markdown_strict/unnamed-chunk-1-1.png)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Die Funktion “plot\_last10years(bigFive,”FC SChalke 04”)” plottet die
+Saison-Endplatzierungen von “FC Schalke 04” über die vergangenen 10
+Jahre (bzw. die Anzahl an Jahren in denen es in einer Top-5-Liga
+gespielt hat (hier also alle Saisons bis auf 2021/22)). Dabei ist es
+möglich zwischen einem kategorischen Plot der Variablen und einem
+nichtkategorischen Plot mithilfe der Variable “categoric” zu wählen.
+Dieser Beispielplot legt einen direkten Zusammenhang zwischen den im
+Test zu untersuchenden Variablen Marktwert und Platzierung nahe. Dennoch
+darf die Aussage dieses Graphen nicht überbewertet werden, da die
+Variablen hier in diesem Beispiel abhängig voneinander sind.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.lrz.de/len1218/bundesliga_r_gruppe_38.git
-git branch -M main
-git push -uf origin main
-```
+“plot\_oneleague()” dagegen plottet den Marktwert und die Endplatzierung
+einer bestimmten Saison aus einer Liga des Datensatzes (also von
+unabhängigen Variablen).
 
-## Integrate with your tools
+    plot_oneleague(data=bigFive,liga="Premier League",saison=2021)
 
-- [ ] [Set up project integrations](https://gitlab.lrz.de/len1218/bundesliga_r_gruppe_38/-/settings/integrations)
+![](README_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
-## Collaborate with your team
+Bei den im Plot zu erkennenden roten Linien handelt es sich um die
+Trenngrenzen der einzelnen Kategorien. Im rechten, oberen Quadranten
+befinden sich also alle Teams der Premier League-Saison 2021/22 die eine
+Endplatzierung der Kategorie “front” erreicht haben und zugleich einen
+“high”-Marktwert besitzen. Auch dieser Plot legt einen Zusammenhang
+zwischen Marktwert und Platzierung nahe.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Ein ähnlicher, aber weitaus größerer Plot wird durch
+“plot\_data\_placements()” erzeugt. Hier wird für alle im übergebenen
+Datensatz enthaltenen Reihen die Platzierung gegen den
+Marktwertsquotient aufgetragen:
 
-## Test and Deploy
+    plot_data_placements(data=bigFive)
 
-Use the built-in continuous integration in GitLab.
+![](README_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Zur besseren Übersichtlichtkeit wird mit “plot\_data\_points noch eine
+Funktion bereitgestellt die die Punktanzahl gegen den
+Marktwertsquotienten plottet:
 
-***
+    plot_data_placements(data=bigFive)
 
-# Editing this README
+![](README_files/figure-markdown_strict/unnamed-chunk-4-1.png)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Auch diese Plots unterstützen die Aussagen der anderen Plots, die einen
+Zusammenhang zwischen Marktwert und Platzierung nahe legen.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Zuletzt wurden mit “filter\_data()” und frame\_performance() zwei
+numerische Methoden bereitgestellt mit den man “BigFive”durchforsten”
+kann. Mit “filter\_data()” ist es möglich den zu analysierenden
+Datensatz nach Saisons, Teams, Ligen, Punkten und Marktwerten zu filtern
+und den so produzierten neuen Datensatz beispielsweise mit
+“plot\_data\_placements()” zu plotten:
 
-## Name
-Choose a self-explaining name for your project.
+    filter_data(data=bigFive,saison_von=2015,saison_bis=2019,teams=c("FC Augsburg"))
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+    ## # A tibble: 5 × 6
+    ##   Liga       Saison Team        Marktwert Platzierung Punkte
+    ##   <chr>       <dbl> <chr>           <dbl>       <dbl>  <dbl>
+    ## 1 Bundesliga   2015 FC Augsburg  75930000          12     38
+    ## 2 Bundesliga   2016 FC Augsburg  65850000          13     38
+    ## 3 Bundesliga   2017 FC Augsburg 100450000          12     41
+    ## 4 Bundesliga   2018 FC Augsburg 139250000          15     32
+    ## 5 Bundesliga   2019 FC Augsburg 112950000          15     36
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Für genauere Informationen gerne “?filter\_data” aufrufen! Mit
+“frame\_perfomance()” ist es möglich einen Datensatz bezüglich einer
+bestimmten Leitung zu filtern´. Dabei kann von “überdurchschnittlich
+schlecht” (-2) über “schlecht” (-1) und “Durchschnitt” (0) bis zu
+“überdurschnittlich gut” (2) gefiltert werden:
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+    frame_performance(data=bigFive,-2)
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+    ## # A tibble: 1 × 6
+    ##   Liga    Saison Team      Marktwert Platzierung Punkte
+    ##   <chr>    <dbl> <chr>     <fct>     <fct>       <fct> 
+    ## 1 Ligue 1   2018 AS Monaco high      end         end
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Die AS Monaco ist also das einzige Team aus dem Datensatz “bigFive”, das
+mit einem “high”-Kaderwert eine “end”-Platzierung erreichte. Auch diese
+Tatsache untermauert eine Korellation zwischen den zu untersuchenden
+Variablen.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+# Induktive Analyse
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Um nun letzendlich die Abhängigkeit tatsächlich zu überprüfen, haben wir
+einen Chi-Quadrat Unabhängigkeitstest durchgeführt. Dieser kann
+wahlweise mit einem theorethischen Ansatz oder durch resampling
+durchgeführt werden.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Konkret bedeutet dies folgende Hypothese:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+    H_0: \text{Die Zufallsvariablen Marktwert und Platzierung sind unabhängig.}\quad H_1: \text{Die Zufallsvariablen Marktwert und Platzierung sind abhängig.}
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Mithilfe der Funktion Chi\_squared\_test(), kann eine Chi-Quadrat
+Verteilung geplottet werden und der dazugehörige p-Wert berechnet
+werden. Hierzu wird mithilfe des Parameters ‘method’ eine passende
+Methode zur Berechnung oder Approximation der Chi-Quadrat Verteilung
+bestimmt werden.

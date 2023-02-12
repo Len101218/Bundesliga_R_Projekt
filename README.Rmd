@@ -2,21 +2,20 @@
 title: "README R-Projekt Gruppe 38 Bundesliga"
 author: "David Schwefel, Len Bauer"
 date: "2023-02-02"
-output: pdf_document
+output: md_document
 ---
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(error = FALSE)
 ```
 
-1. Übersicht 
+1.  Übersicht
 
-Dieses Paket enthält die Ordner "Csv", "Python" und "R" sowie dieses README "README_Gruppe_38". Der hier betrachtete Datensatz beeinhaltet Informationen über die letzten 10 Saisons der aktuell besten fünf europäischen Fußball-Ligen (nach dem aktuellsten Update der UEFA-5-Jahreswertung). Dabei speichert der Datensatz die Variablen "Liga", "Saison" (es wird nur das kleinere Jahr einer Saison angegeben; z.B wird die Saison 2021/22 unter 2021 abgespeichert), "Team", "Marktwert", "Platzierung" und "Punkte". Beschafft wurde diese Variablen indem sie mithilfe eines Pythonskripts von der Webiste "transfermarkt.de" gecrawlt wurden. Ziel des Projektes ist es die Variablen "Platzierung" und "Marktwert" bezüglich der Saison 2021/22 mithilfe eines Chi-Quadrat-Tests basierend auf der Resampling-Methode auf Unabhängigkeit zu untersuchen. Da diese zwei Variablen im Datensatz nicht kategorisch vorliegen und es somit schwierig wäre diese Variablen auf Unabhängigkeit zu untersuchen wurde die Methode categorize_data() bereitgestellt, die diese Variablen kategorisiert. Dabei wurden die Tabellenplatzierungen der Teams in die Kategorien "front" (Platz 1-6), "mid" (Platz 7-12) und "end" (Platz 13-18/20) eingeteilt. Der Marktwert der Teams wurde jeweils durch den Durchschnittsmarktwert der jeweiligen Liga des Teams in der Saison 2021/22 geteilt. Anschließend wurden die Teams anhand ihres Marktwertsquotienten in die Kategorien "high" (1.5,inf), "avg" (0.5,1.5) und "low" (0,0.5) überführt. Falls Unklarheiten zu categorize_data() oder anderen im Projekt enthaltenen Methoden besteht ist es möglich mit dem "help"-Befehl die Dokumentation zu öffnen.
-Da das Projekt nahezu nirgends hardgecodet wurde ist es einem Nutzer, der PyCharm o.Ä Umgebungen zum ausführen von Pythoncode besitzt, mit den angebenen Methoden möglich seine eigenen Datensatz von "www.transfermarkt.de" zu crawlen und einen Chi-Quadrat-Test mit diesen Daten durchzuführen.
+Dieses Paket enthält die Ordner "Csv", "Python" und "R" sowie dieses README "README_Gruppe_38". Der hier betrachtete Datensatz beeinhaltet Informationen über die letzten 10 Saisons der aktuell besten fünf europäischen Fußball-Ligen (nach dem aktuellsten Update der UEFA-5-Jahreswertung). Dabei speichert der Datensatz die Variablen "Liga", "Saison" (es wird nur das kleinere Jahr einer Saison angegeben; z.B wird die Saison 2021/22 unter 2021 abgespeichert), "Team", "Marktwert", "Platzierung" und "Punkte". Beschafft wurde diese Variablen indem sie mithilfe eines Pythonskripts von der Webiste "transfermarkt.de" gecrawlt wurden. Ziel des Projektes ist es die Variablen "Platzierung" und "Marktwert" bezüglich der Saison 2021/22 mithilfe eines Chi-Quadrat-Tests basierend auf der Resampling-Methode auf Unabhängigkeit zu untersuchen. Da diese zwei Variablen im Datensatz nicht kategorisch vorliegen und es somit schwierig wäre diese Variablen auf Unabhängigkeit zu untersuchen wurde die Methode categorize_data() bereitgestellt, die diese Variablen kategorisiert. Dabei wurden die Tabellenplatzierungen der Teams in die Kategorien "front" (Platz 1-6), "mid" (Platz 7-12) und "end" (Platz 13-18/20) eingeteilt. Der Marktwert der Teams wurde jeweils durch den Durchschnittsmarktwert der jeweiligen Liga des Teams in der Saison 2021/22 geteilt. Anschließend wurden die Teams anhand ihres Marktwertsquotienten in die Kategorien "high" (1.5,inf), "avg" (0.5,1.5) und "low" (0,0.5) überführt. Falls Unklarheiten zu categorize_data() oder anderen im Projekt enthaltenen Methoden besteht ist es möglich mit dem "help"-Befehl die Dokumentation zu öffnen. Da das Projekt nahezu nirgends hardgecodet wurde ist es einem Nutzer, der PyCharm o.Ä Umgebungen zum ausführen von Pythoncode besitzt, mit den angebenen Methoden möglich seine eigenen Datensatz von "www.transfermarkt.de" zu crawlen und einen Chi-Quadrat-Test mit diesen Daten durchzuführen.
 
-2. Installation
+2.  Installation
 
-3. Explorative Analyse
+3.  Explorative Analyse
 
 Um den Datensatz zu genauer zu analysieren und sich ein Verständnis von den Daten zu verschaffen wurden mehrere graphische und numerische Funktionen erstellt. Dabei lässt sich oft ein Zusammenhang zwischen Marktwert und Platzierung der einzelnen Teams erahnen.
 
@@ -41,23 +40,22 @@ Ein ähnlicher, aber weitaus größerer Plot wird durch "plot_data_placements()"
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
 plot_data_placements(data=bigFive)
 ```
-Zur besseren Übersichtlichtkeit wird mit "plot_data_points noch eine Funktion bereitgestellt die die Punktanzahl  gegen den Marktwertsquotienten plottet:
+
+Zur besseren Übersichtlichtkeit wird mit "plot_data_points noch eine Funktion bereitgestellt die die Punktanzahl gegen den Marktwertsquotienten plottet:
 
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
 plot_data_placements(data=bigFive)
 ```
+
 Auch diese Plots unterstützen die Aussagen der anderen Plots, die einen Zusammenhang zwischen Marktwert und Platzierung nahe legen.
 
-
-Zuletzt wurden mit "filter_data()" und frame_performance() zwei numerische Methoden bereitgestellt mit den man "BigFive "durchforsten" kann. 
-Mit "filter_data()" ist es möglich den zu analysierenden Datensatz nach Saisons, Teams, Ligen, Punkten und Marktwerten zu filtern und den so produzierten neuen Datensatz beispielsweise mit "plot_data_placements()" zu plotten:
+Zuletzt wurden mit "filter_data()" und frame_performance() zwei numerische Methoden bereitgestellt mit den man "BigFive"durchforsten" kann. Mit "filter_data()" ist es möglich den zu analysierenden Datensatz nach Saisons, Teams, Ligen, Punkten und Marktwerten zu filtern und den so produzierten neuen Datensatz beispielsweise mit "plot_data_placements()" zu plotten:
 
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
 filter_data(data=bigFive,saison_von=2015,saison_bis=2019,teams=c("FC Augsburg"))
 ```
 
-Für genauere Informationen gerne "?filter_data" aufrufen! 
-Mit "frame_perfomance()" ist es möglich einen Datensatz bezüglich einer bestimmten Leitung zu filtern´. Dabei kann von "überdurchschnittlich schlecht" (-2) über "schlecht" (-1) und "Durchschnitt" (0) bis zu "überdurschnittlich gut" (2) gefiltert werden:
+Für genauere Informationen gerne "?filter_data" aufrufen! Mit "frame_perfomance()" ist es möglich einen Datensatz bezüglich einer bestimmten Leitung zu filtern´. Dabei kann von "überdurchschnittlich schlecht" (-2) über "schlecht" (-1) und "Durchschnitt" (0) bis zu "überdurschnittlich gut" (2) gefiltert werden:
 
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
 frame_performance(data=bigFive,-2)
@@ -65,22 +63,17 @@ frame_performance(data=bigFive,-2)
 
 Die AS Monaco ist also das einzige Team aus dem Datensatz "bigFive", das mit einem "high"-Kaderwert eine "end"-Platzierung erreichte. Auch diese Tatsache untermauert eine Korellation zwischen den zu untersuchenden Variablen.
 
-
-
 # Induktive Analyse
 
-Um nun letzendlich die Abhängigkeit tatsächlich zu überprüfen, haben wir einen Chi-Quadrat Unabhängigkeitstest durchgeführt.
-Dieser kann wahlweise mit einem theorethischen Ansatz oder durch resampling durchgeführt werden.
+Um nun letzendlich die Abhängigkeit tatsächlich zu überprüfen, haben wir einen Chi-Quadrat Unabhängigkeitstest durchgeführt. Dieser kann wahlweise mit einem theorethischen Ansatz oder durch resampling durchgeführt werden.
 
 Konkret bedeutet dies folgende Hypothese:
 
-```math
+``` math
 H_0: \text{Die Zufallsvariablen Marktwert und Platzierung sind unabhängig.}\quad H_1: \text{Die Zufallsvariablen Marktwert und Platzierung sind abhängig.}
-
 ```
 
-Mithilfe der Funktion Chi_squared_test(), kann eine Chi-Quadrat Verteilung geplottet werden und der dazugehörige p-Wert berechnet werden.
-Hierzu wird mithilfe des Parameters 'method' eine passende Methode zur Berechnung oder Approximation der Chi-Quadrat Verteilung bestimmt werden.
+Mithilfe der Funktion Chi_squared_test(), kann eine Chi-Quadrat Verteilung geplottet werden und der dazugehörige p-Wert berechnet werden. Hierzu wird mithilfe des Parameters 'method' eine passende Methode zur Berechnung oder Approximation der Chi-Quadrat Verteilung bestimmt werden.
 
 ```{r warning=FALSE , message }
 
