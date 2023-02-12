@@ -27,6 +27,7 @@ Um den Datensatz zu genauer zu analysieren und sich ein Verständnis von den Dat
 
 ```{r  warning=FALSE,message=FALSE,error=FALSE}
 library(Bundesliga)
+library(tidyverse)
 plot_last10years(bigFive,"FC Schalke 04")
 ```
 

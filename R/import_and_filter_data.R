@@ -7,6 +7,7 @@
 #' @return Returns your data.
 #' @export
 #' @import here
+#' @import tidyverse
 #' @examples read_data_from_csv("Csv/bigFive.csv")
 read_data_from_csv <- function(relPath){
   if(!is.character(relPath))stop("One or more arguments are wrong: See help!")
