@@ -9,6 +9,7 @@
 #'
 #' @return Returns a plot.
 #' @export
+#' @import tidyverse
 #'
 #' @examples plot_last10years(data,"FC Schalke 04",categoric=TRUE)
 plot_last10years<-function(data,team,categoric=TRUE){
@@ -65,6 +66,7 @@ plot_last10years<-function(data,team,categoric=TRUE){
 #' @return Returns a plot.
 #' @export
 #'
+#' @import tidyverse
 #' @examples plot_oneleague(data,"Premier League", 2018)
 plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
   actdata<-filter_data(data,saison_von=saison,saison_bis=saison,ligen=liga)
@@ -101,6 +103,7 @@ plot_oneleague<-function(data,liga,saison=get_lastfullseason()){
 #' @return Returns a plot.
 #' @export
 #'
+#' @import tidyverse
 #' @examples plot_data_points(data)
 plot_data_points<-function(data){
   actdata1 <- data %>%
@@ -152,7 +155,8 @@ plot_data_points<-function(data){
 #'
 #' @return Returns a plot.
 #' @export
-#'
+#' 
+#' @import tidyverse
 #' @examples plot_data_placements(data)
 plot_data_placements<-function(data){
   
@@ -188,6 +192,8 @@ plot_data_placements<-function(data){
 #'
 #' @return Returns a dataframe.
 #' @export
+#' 
+#' @import tidyverse
 #'
 #' @examples frame_performance(data,2) returns a frame consisting out of teams with low marketvalue and high placement.
 frame_performance<-function(data,performance){
