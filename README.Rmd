@@ -84,14 +84,20 @@ Die Chi-Quadrat Statistik nimmt bei grosser Abhängigkeit ebenfalls grosse Werte
 Mithilfe der Funktion Chi_squared_test(), kann eine Chi-Quadrat Verteilung geplottet werden und der dazugehörige p-Wert berechnet werden. Hierzu wird mithilfe des Parameters 'method' eine passende Methode zur Berechnung oder Approximation der Chi-Quadrat Verteilung bestimmt werden.
 
 ```{r chi_squared_test, warning=FALSE }
-
-filtered_data <- filter_data(bigFive,saison_von = 2021)
-chi_squared_test(filter,"theory")
+filtered_data <- filter_data(bigFive, saison_von = 2021)
+chi_squared_test(filtered_data,"theory")
 ```
 
 ```{r chi_squared_test_simulation, warning=FALSE }
 
-chi_squared_test(filter,"simulation",1000)
+chi_squared_test(filtered_data,"simulation",1000)
 ```
 
-Zu sehen sind jeweils die theoretische Chi-Quadrat-Verteilung (blau) , die Balken, als Häufigkeiten der Intervalle der Zufallsvariable X (Chi-Quadrat verteilt) und die rote Linie als beobachteter Wert der Chi-Quadrat Statistik.
+Zu sehen sind jeweils die theoretische Chi-Quadrat-Verteilung (blau), die Balken, als Häufigkeiten der Intervalle der Zufallsvariable X (Chi-Quadrat verteilt) und die rote Linie als beobachteter Wert der Chi-Quadrat Statistik.
+
+
+Die ausgegebenen p-Werte sind ziemlich klein und in der Simulation sogar 0. Es kommt also fast nie vor, dass ein Sample einen grösseren Wert als die gemessene Statistik($\approx 56$) evaluiert. Deshalb ist der maximale Fehler 1. Art ziemlich klein, und die Nullhypothese kann mit jedem vernünftigen Signifikantsniveau verworfen werden.
+
+Es ist also anzunehmen, dass die Platzierung der Fussballvereine sehr wohl von dessen Marktkapital abhängt.
+
+Dem aktiven Leser bleibt es überlassen, diesen Test erneut mit weiteren Ligen zu durchzuführen, die evtl. nicht zu den Topligen gehören.

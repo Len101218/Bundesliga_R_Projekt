@@ -7,8 +7,8 @@ europäischen Fußball-Ligen (nach dem aktuellsten Update der
 UEFA-5-Jahreswertung). Dabei speichert der Datensatz die Variablen
 “Liga”, “Saison” (es wird nur das kleinere Jahr einer Saison angegeben;
 z.B wird die Saison 2021/22 unter 2021 abgespeichert), “Team”,
-“Marktwert”, “Platzierung” und “Punkte”. Beschafft wurde diese Variablen
-indem sie mithilfe eines Pythonskripts von der Webiste
+“Marktwert”, “Platzierung” und “Punkte”. Beschafft wurden diese
+Variablen, indem sie mithilfe eines Pythonskripts von der Webiste
 “transfermarkt.de” gecrawlt wurden. Ziel des Projektes ist es die
 Variablen “Platzierung” und “Marktwert” bezüglich der Saison 2021/22
 mithilfe eines Chi-Quadrat-Tests basierend auf der Resampling-Methode
@@ -23,24 +23,31 @@ Liga des Teams in der Saison 2021/22 geteilt. Anschließend wurden die
 Teams anhand ihres Marktwertsquotienten in die Kategorien “high”
 (1.5,inf), “avg” (0.5,1.5) und “low” (0,0.5) überführt. Falls
 Unklarheiten zu categorize\_data() oder anderen im Projekt enthaltenen
-Methoden besteht ist es möglich mit dem “help”-Befehl die Dokumentation
-zu öffnen. Da das Projekt nahezu nirgends hardgecodet wurde ist es einem
-Nutzer, der PyCharm o.Ä Umgebungen zum ausführen von Pythoncode besitzt,
-mit den angebenen Methoden möglich seine eigenen Datensatz von
-“www.transfermarkt.de” zu crawlen und einen Chi-Quadrat-Test mit diesen
-Daten durchzuführen.
+Methoden besteht, ist es möglich mit dem “help”-Befehl die Dokumentation
+zu öffnen. Mit einem Python interpreter und den benötigten Modules kann
+mit den Methoden in “load\_new\_data.R” oder direkt über die Konsole ein
+eigener Datensatz von “www.transfermarkt.de” gecrawlet werden und einen
+Chi-Quadrat-Test mit diesen Daten durchführen. Beachte hierzu
+Bezeichnung von Team und Liga Namen auf der Website.
 
 1.  Installation
 
-2.  Explorative Analyse
+Das Paket kann direkt in R Studio mithilfe folgenden Befehls installiert
+werden:
+
+    ```r
+    remotes::install_gitlab("len1218/bundesliga_r_gruppe_38",host = "gitlab.lrz.de", auth_token = "glpat-jDmp3TaM74LSHYhxGkmj")
+    ```
+
+1.  Explorative Analyse
 
 Um den Datensatz zu genauer zu analysieren und sich ein Verständnis von
 den Daten zu verschaffen wurden mehrere graphische und numerische
 Funktionen erstellt. Dabei lässt sich oft ein Zusammenhang zwischen
 Marktwert und Platzierung der einzelnen Teams erahnen.
 
-    library(tidyverse)
     library(Bundesliga)
+    library(tidyverse)
     plot_last10years(bigFive,"FC Schalke 04")
 
 ![](README_files/figure-markdown_strict/unnamed-chunk-1-1.png)
@@ -138,8 +145,48 @@ Konkret bedeutet dies folgende Hypothese:
 
     H_0: \text{Die Zufallsvariablen Marktwert und Platzierung sind unabhängig.}\quad H_1: \text{Die Zufallsvariablen Marktwert und Platzierung sind abhängig.}
 
+Die Chi-Quadrat Statistik nimmt bei grosser Abhängigkeit ebenfalls
+grosse Werte an und bei perfekter Unabhängigkeit dementsprechend den
+Wert 0.
+
 Mithilfe der Funktion Chi\_squared\_test(), kann eine Chi-Quadrat
 Verteilung geplottet werden und der dazugehörige p-Wert berechnet
 werden. Hierzu wird mithilfe des Parameters ‘method’ eine passende
 Methode zur Berechnung oder Approximation der Chi-Quadrat Verteilung
 bestimmt werden.
+
+    filtered_data <- filter_data(bigFive, saison_von = 2021)
+    chi_squared_test(filtered_data,"theory")
+
+    ## # A tibble: 1 × 1
+    ##    p_value
+    ##      <dbl>
+    ## 1 1.74e-11
+
+![](README_files/figure-markdown_strict/chi_squared_test-1.png)
+
+    chi_squared_test(filtered_data,"simulation",1000)
+
+    ## # A tibble: 1 × 1
+    ##   p_value
+    ##     <dbl>
+    ## 1       0
+
+![](README_files/figure-markdown_strict/chi_squared_test_simulation-1.png)
+
+Zu sehen sind jeweils die theoretische Chi-Quadrat-Verteilung (blau),
+die Balken, als Häufigkeiten der Intervalle der Zufallsvariable X
+(Chi-Quadrat verteilt) und die rote Linie als beobachteter Wert der
+Chi-Quadrat Statistik.
+
+Die ausgegebenen p-Werte sind ziemlich klein und in der Simulation sogar
+0. Es kommt also fast nie vor, dass ein Sample einen grösseren Wert als
+die gemessene Statistik( ≈ 56) evaluiert. Deshalb ist der maximale
+Fehler 1. Art ziemlich klein, und die Nullhypothese kann mit jedem
+vernünftigen Signifikantsniveau verworfen werden.
+
+Es ist also anzunehmen, dass die Platzierung der Fussballvereine sehr
+wohl von dessen Marktkapital abhängt.
+
+Dem aktiven Leser bleibt es überlassen, diesen Test erneut mit weiteren
+Ligen zu durchzuführen, die evtl. nicht zu den Topligen gehören.
