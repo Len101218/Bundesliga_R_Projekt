@@ -13,6 +13,12 @@ chi_squared_test(data, method, reps)
 
 \item{reps}{}
 }
+\value{
+No return value
+}
 \description{
 Title
+}
+\examples{
+chi_squared_test(bigFive,"theory",1000)
 }

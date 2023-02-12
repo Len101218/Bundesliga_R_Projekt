@@ -26,10 +26,12 @@
 #' @param method 
 #' @param reps 
 #'
-#' @return
+#' @return No return value
 #' @export
 #'
-#' @examples
+#' @import infer
+#' @import tidyverse
+#' @examples chi_squared_test(bigFive,"theory",1000)
 chi_squared_test <- function(data,method,reps){
   data <- data %>%
     categorize_data %>%
