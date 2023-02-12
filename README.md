@@ -179,11 +179,12 @@ die Balken, als Häufigkeiten der Intervalle der Zufallsvariable X
 (Chi-Quadrat verteilt) und die rote Linie als beobachteter Wert der
 Chi-Quadrat Statistik.
 
-Die ausgegebenen p-Werte sind ziemlich klein und in der Simulation sogar
-0. Es kommt also fast nie vor, dass ein Sample einen grösseren Wert als
-die gemessene Statistik( ≈ 56) evaluiert. Deshalb ist der maximale
-Fehler 1. Art ziemlich klein, und die Nullhypothese kann mit jedem
-vernünftigen Signifikantsniveau verworfen werden.
+Die ausgegebenen p-Werte sind ziemlich klein( ≈ 1.74*e*<sup>−</sup>11)
+und in der Simulation sogar 0. Es kommt also fast nie vor, dass ein
+Sample einen grösseren Wert als die gemessene Statistik( ≈ 56)
+evaluiert. Deshalb ist der maximale Fehler 1. Art ziemlich klein, und
+die Nullhypothese kann mit jedem vernünftigen Signifikantsniveau
+verworfen werden.
 
 Es ist also anzunehmen, dass die Platzierung der Fussballvereine sehr
 wohl von dessen Marktkapital abhängt.
